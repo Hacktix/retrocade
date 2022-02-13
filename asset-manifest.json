@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/retrocade/static/css/main.073c9b0a.css",
+    "main.js": "/retrocade/static/js/main.5617c238.js",
+    "static/js/787.13a0b513.chunk.js": "/retrocade/static/js/787.13a0b513.chunk.js",
+    "static/media/logo.svg": "/retrocade/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/retrocade/index.html",
+    "main.073c9b0a.css.map": "/retrocade/static/css/main.073c9b0a.css.map",
+    "main.5617c238.js.map": "/retrocade/static/js/main.5617c238.js.map",
+    "787.13a0b513.chunk.js.map": "/retrocade/static/js/787.13a0b513.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.5617c238.js"
+  ]
+}
