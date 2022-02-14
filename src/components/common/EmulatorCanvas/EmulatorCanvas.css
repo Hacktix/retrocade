@@ -1,0 +1,9 @@
+.EmulatorCanvasContainer {
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+}
+
+.EmulatorCanvas {
+    image-rendering: pixelated;
+}
