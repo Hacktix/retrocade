@@ -1,0 +1,46 @@
+/* Flex Container */
+.SystemContainer {
+    margin-top: 1em;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+/* Flex Items */
+.SystemItem {
+    text-align: center;
+    transition: all 0.25s;
+    margin: 5px;
+}
+
+.SystemItem:hover {
+    transform: scale(1.025);
+}
+
+
+/* Flex Item Image */
+.SystemLogo {
+    border: 1px solid rgba(200, 0, 0, 0.75);
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    border-radius: 10px;
+    max-width: 25vw;
+    max-height: 25vh;
+    transition: all 0.2s;
+}
+
+.SystemItem:hover .SystemLogo {
+    border: 1px solid rgba(200, 0, 0, 0.75);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.75);
+}
+
+
+/* Flex Item Caption */
+.SystemTitle {
+    color: red;
+    display: inline;
+    font-family: 'Russo One';
+    text-shadow: 0 0 5px rgba(200, 0, 0, 0.5);
+    user-select: none;
+}

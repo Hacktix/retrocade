@@ -1,14 +1,25 @@
 import ProgressBar from "../../common/ProgressBar/ProgressBar";
+import { System, SystemSelection } from "../../common/SystemSelection/SystemSelection";
+
+import SpaceInvadersLogo from "../../../assets/img/spaceinvaders.jpg";
 
 export default function Homepage() {
+    const systems: Array<System> = [
+        { name: "Space Invaders", img: SpaceInvadersLogo, url: "/spaceinvaders" }
+    ]
+
     return (
         <>
             <p>Welcome to RETROCADE, your favorite browser-based emulator collection.</p>
             <p>This site is currently heavily Work-In-Progress, as it's still in the early stages of being set up. While you're waiting, have a nice cup of tea: 🍵</p>
+
             <hr />
+
             <h2>Select your System:</h2>
-            <p>Once any systems are supported, they will show up here!</p>
+            <SystemSelection systems={systems} />
+
             <hr />
+
             <h2>Roadmap</h2>
             <p>
                 There are many plans for systems which should be supported on RETROCADE in the near future.
