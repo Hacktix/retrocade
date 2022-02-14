@@ -1,11 +1,16 @@
+import { Route, Routes } from 'react-router-dom';
+import Homepage from './components/Homepage/Homepage';
+import SiteHeader from './components/SiteHeader/SiteHeader';
+
 import './App.css';
 
 export default function App() {
     return (
         <>
-        <h1>RETROCADE</h1>
-        <hr/>
-        <p>Something big is coming here. 👀</p>
+            <SiteHeader />
+            <Routes>
+                <Route path="*" element={<Homepage />} />
+            </Routes>
         </>
     )
 }

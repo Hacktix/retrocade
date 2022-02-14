@@ -1,0 +1,9 @@
+a:link, a:visited {
+    text-decoration: none;
+}
+
+.HeaderBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
