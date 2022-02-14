@@ -1,3 +1,5 @@
+/* Font Declarations */
+
 @font-face {
     font-family: 'Russo One';
     src: url("assets/fonts/RussoOne-Regular.ttf") format("truetype");
@@ -8,6 +10,8 @@
     src: url("assets/fonts/SairaCondensed-Regular.ttf") format("truetype");
 }
 
+
+/* General Contents */
 
 body {
     background-color: rgb(20, 20, 20);
@@ -20,6 +24,19 @@ p {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
 }
+
+hr {
+    border-color: red;
+    box-shadow:
+        0 0 1px red,
+        0 0 3px red,
+        0 0 5px red;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+
+/* Headings */
 
 h1 {
     color: red;
@@ -65,12 +82,21 @@ h3 {
     user-select: none;
 }
 
-hr {
-    border-color: red;
-    box-shadow:
-        0 0 1px red,
-        0 0 3px red,
-        0 0 5px red;
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 0, 0, 0.25);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 0, 0, 0.6);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #f00;
 }
