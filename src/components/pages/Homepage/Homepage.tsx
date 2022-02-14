@@ -1,4 +1,4 @@
-import ProgressBar from "../ProgressBar/ProgressBar";
+import ProgressBar from "../../common/ProgressBar/ProgressBar";
 
 export default function Homepage() {
     return (
@@ -22,10 +22,11 @@ export default function Homepage() {
                 With it's fairly simple gameplay concept comes a fairly simple system which is relatively easy to emulate.
                 Due to this fact (and previous experience with emulating Space Invaders), this game is going to be RETROCADE's premiere.
             </p>
-            <p>
+            <div>
                 Development Progress:
                 <ProgressBar value={0} status="Getting started..." />
-            </p>
+            </div>
+            <br />
 
             <h3>Pac-Man</h3>
             <p>
@@ -33,10 +34,10 @@ export default function Homepage() {
                 While the hardware for the Pac-Man arcade machine is slightly more complex than that of Space Invaders, it is equally well documented.
                 This should make Pac-Man a worthy second addition to the RETROCADE library.
             </p>
-            <p>
+            <div>
                 Development Progress:
                 <ProgressBar value={0} />
-            </p>
+            </div>
         </>
     )
 }
