@@ -5,7 +5,7 @@ import SpaceInvadersLogo from "../../../assets/img/spaceinvaders.jpg";
 
 export default function Homepage() {
     const systems: Array<System> = [
-        { name: "Space Invaders", img: SpaceInvadersLogo, url: "/spaceinvaders" }
+        /* { name: "Space Invaders", img: SpaceInvadersLogo, url: "/spaceinvaders" } */
     ]
 
     return (
@@ -16,7 +16,10 @@ export default function Homepage() {
             <hr />
 
             <h2>Select your System:</h2>
-            <SystemSelection systems={systems} />
+            {systems.length === 0
+                ? <p>Once any systems are available, they will be listed here!</p>
+                : <SystemSelection systems={systems} />
+            }
 
             <hr />
 
