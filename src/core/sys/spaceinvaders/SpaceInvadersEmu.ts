@@ -47,7 +47,7 @@ export default class SpaceInvadersEmu {
 
         // Initialize hardware
         this.cpu = new i8080();
-        this.bus = new SpaceInvadersBus(rom, this.draw, this.render);
+        this.bus = new SpaceInvadersBus(rom, this.draw.bind(this), this.render.bind(this));
         this.cpu.connectToBus(this.bus);
     }
 
