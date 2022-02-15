@@ -2,7 +2,7 @@ import MemoryBus from "./MemoryBus";
 
 export default abstract class CPU {
 
-    private bus!: MemoryBus;
+    protected bus!: MemoryBus;
 
     public connectToBus(bus: MemoryBus): void {
         this.bus = bus;
