@@ -14,6 +14,8 @@ export enum Register {
     H = "h",
     L = "l",
     M = "m"
-}
+};
+
+export enum BranchCondition { NZ, Z, NC, C, PO, PE, P, M };
 
 export const PARITY_LOOKUP_TABLE = new Array(256).fill(0).map((_,i) => (i.toString(2).split("").filter(v => v === "1").length % 2) === 0);
