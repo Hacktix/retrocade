@@ -17,3 +17,24 @@ export function i8080_MVI(this: i8080, target: Register) {
         return 2;
     }
 }
+
+export function i8080_LDAX(this: i8080, src: RegisterPair) {
+    this.regs.a = this.bus.read(this.regs[src]);
+    return 2;
+}
+
+export function i8080_MOV(this: i8080, target: Register, src: Register) {
+    if(src === Register.M) {
+        // @ts-expect-error: If `src` is Register.M, then `target` cannot also be Register.M. Typescript doesn't know this and throws an error
+        this.regs[target] = this.bus.read(this.regs.hl);
+        return 2;
+    }
+    else if(target === Register.M) {
+        this.bus.write(this.regs[src], this.regs.hl);
+        return 2;
+    }
+    else {
+        this.regs[target] = this.regs[src];
+        return 1;
+    }
+}
