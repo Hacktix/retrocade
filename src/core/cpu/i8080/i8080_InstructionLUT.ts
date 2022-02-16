@@ -1,7 +1,7 @@
 import i8080 from "./i8080";
 import { BranchCondition, Register, RegisterPair } from "./i8080_InstructionEnums";
 import { i8080_ADI, i8080_ANA, i8080_ANI, i8080_CPI, i8080_DAD, i8080_DCR, i8080_INX, i8080_RRC, i8080_XRA } from "./Instructions/i8080_Arithmetic";
-import { i8080_CALL, i8080_Jcond, i8080_JMP, i8080_RET } from "./Instructions/i8080_Branch";
+import { i8080_CALL, i8080_Jcond, i8080_JMP, i8080_Rcond, i8080_RET } from "./Instructions/i8080_Branch";
 import { i8080_LDA, i8080_LDAX, i8080_LXI, i8080_MOV, i8080_MVI, i8080_STA, i8080_XCHG } from "./Instructions/i8080_DataTransfer";
 import { i8080_EI, i8080_IN, i8080_OUT, i8080_POP, i8080_PUSH } from "./Instructions/i8080_StackIO";
 
@@ -124,29 +124,37 @@ export class i8080InstructionLUT {
             0xad: i8080_XRA.bind(cpu, Register.L),
             0xae: i8080_XRA.bind(cpu, Register.M),
             0xaf: i8080_XRA.bind(cpu, Register.A),
+            0xc0: i8080_Rcond.bind(cpu, BranchCondition.NZ),
             0xc1: i8080_POP.bind(cpu, RegisterPair.BC),
             0xc2: i8080_Jcond.bind(cpu, BranchCondition.NZ),
             0xc3: i8080_JMP,
             0xc5: i8080_PUSH.bind(cpu, RegisterPair.BC),
             0xc6: i8080_ADI,
+            0xc8: i8080_Rcond.bind(cpu, BranchCondition.Z),
             0xc9: i8080_RET,
             0xca: i8080_Jcond.bind(cpu, BranchCondition.Z),
             0xcd: i8080_CALL,
+            0xd0: i8080_Rcond.bind(cpu, BranchCondition.NC),
             0xd1: i8080_POP.bind(cpu, RegisterPair.DE),
             0xd2: i8080_Jcond.bind(cpu, BranchCondition.NC),
             0xd3: i8080_OUT,
             0xd5: i8080_PUSH.bind(cpu, RegisterPair.DE),
+            0xd8: i8080_Rcond.bind(cpu, BranchCondition.C),
             0xda: i8080_Jcond.bind(cpu, BranchCondition.C),
             0xdb: i8080_IN,
+            0xe0: i8080_Rcond.bind(cpu, BranchCondition.PO),
             0xe1: i8080_POP.bind(cpu, RegisterPair.HL),
             0xe2: i8080_Jcond.bind(cpu, BranchCondition.PO),
             0xe5: i8080_PUSH.bind(cpu, RegisterPair.HL),
             0xe6: i8080_ANI,
+            0xe8: i8080_Rcond.bind(cpu, BranchCondition.PE),
             0xea: i8080_Jcond.bind(cpu, BranchCondition.PE),
             0xeb: i8080_XCHG,
+            0xf0: i8080_Rcond.bind(cpu, BranchCondition.P),
             0xf1: i8080_POP.bind(cpu, RegisterPair.SP),
             0xf2: i8080_Jcond.bind(cpu, BranchCondition.P),
             0xf5: i8080_PUSH.bind(cpu, RegisterPair.SP),
+            0xf8: i8080_Rcond.bind(cpu, BranchCondition.M),
             0xfa: i8080_Jcond.bind(cpu, BranchCondition.M),
             0xfb: i8080_EI,
             0xfe: i8080_CPI
