@@ -9,7 +9,7 @@ export default class i8080 extends CPU {
     public tick(): void {
         const opcode = this.bus.read(this.pc++);
         try {
-            this.cycles += i8080InstructionLUT[opcode]();
+            this.cycles += i8080InstructionLUT[opcode].call(this);
         } catch(e: any) {
             if(e.stack.includes("TypeError")) {
                 this.pc--;
