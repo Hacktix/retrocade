@@ -4,7 +4,7 @@ import { BranchCondition } from "../i8080_InstructionEnums";
 export function i8080_JMP(this: i8080): number {
     const addr = this.bus.read(this.pc) | (this.bus.read(this.pc + 1) << 8);
     this.pc = addr;
-    return 3;
+    return 10;
 }
 
 export function i8080_Jcond(this: i8080, cond: BranchCondition): number {
@@ -23,7 +23,7 @@ export function i8080_Jcond(this: i8080, cond: BranchCondition): number {
         this.pc = this.bus.read(this.pc) | (this.bus.read(this.pc + 1) << 8);
     else
         this.pc += 2;
-    return 3;
+    return 10;
 }
 
 export function i8080_CALL(this: i8080): number {
@@ -32,13 +32,13 @@ export function i8080_CALL(this: i8080): number {
     this.bus.write((this.pc & 0xff00) >> 8, --this.regs.sp);
     this.bus.write(this.pc & 0xff, --this.regs.sp);
     this.pc = addr;
-    return 5;
+    return 17;
 }
 
 export function i8080_RET(this: i8080): number {
     this.pc = this.bus.read(this.regs.sp) | (this.bus.read(this.regs.sp + 1) << 8);
     this.regs.sp += 2;
-    return 3;
+    return 10;
 }
 
 export function i8080_Rcond(this: i8080, cond: BranchCondition): number {
@@ -56,7 +56,7 @@ export function i8080_Rcond(this: i8080, cond: BranchCondition): number {
     if(matchCond) {
         this.pc = this.bus.read(this.regs.sp) | (this.bus.read(this.regs.sp + 1) << 8);
         this.regs.sp += 2;
-        return 3;
+        return 11;
     }
-    return 1;
+    return 5;
 }

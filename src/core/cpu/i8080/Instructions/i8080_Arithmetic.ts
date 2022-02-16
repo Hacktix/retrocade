@@ -3,7 +3,7 @@ import { PARITY_LOOKUP_TABLE, Register, RegisterPair } from "../i8080_Instructio
 
 export function i8080_INX(this: i8080, target: RegisterPair) {
     this.regs[target]++;
-    return 1;
+    return 5;
 }
 
 export function i8080_DCR(this: i8080, target: Register) {
@@ -16,7 +16,7 @@ export function i8080_DCR(this: i8080, target: Register) {
         this.flags.s = (res & 0x80) !== 0;
         this.flags.p = PARITY_LOOKUP_TABLE[res];
         this.flags.ac = (src & 0xf) === 0xf;
-        return 3;
+        return 10;
     }
     else {
         const src = this.regs[target];
@@ -27,7 +27,7 @@ export function i8080_DCR(this: i8080, target: Register) {
         this.flags.s = (res & 0x80) !== 0;
         this.flags.p = PARITY_LOOKUP_TABLE[res];
         this.flags.ac = (src & 0xf) === 0xf;
-        return 1;
+        return 5;
     }
 }
 
@@ -39,19 +39,19 @@ export function i8080_CPI(this: i8080) {
     this.flags.p = PARITY_LOOKUP_TABLE[cpRes];
     this.flags.cy = this.regs.a < cp;
     this.flags.ac = (this.regs.a & 0xf) < (cp & 0xf);
-    return 2;
+    return 7;
 }
 
 export function i8080_DAD(this: i8080, src: RegisterPair) {
     this.flags.cy = (this.regs.hl + this.regs[src]) > 0xffff;
     this.regs.hl += this.regs[src];
-    return 3;
+    return 10;
 }
 
 export function i8080_RRC(this: i8080): number {
     this.flags.cy = (this.regs.a & 1) === 1;
     this.regs.a = (this.regs.a >> 1) | (this.flags.cy ? (1 << 7) : 0);
-    return 1;
+    return 4;
 }
 
 export function i8080_ANI(this: i8080): number {
@@ -60,7 +60,7 @@ export function i8080_ANI(this: i8080): number {
     this.flags.s = (this.regs.a & 0x80) !== 0;
     this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
     this.flags.cy = this.flags.ac = false;
-    return 2;
+    return 7;
 }
 
 export function i8080_ANA(this: i8080, src: Register): number {
@@ -72,7 +72,7 @@ export function i8080_ANA(this: i8080, src: Register): number {
     this.flags.s = (this.regs.a & 0x80) !== 0;
     this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
     this.flags.cy = this.flags.ac = false;
-    return src === Register.M ? 2 : 1;
+    return src === Register.M ? 7 : 4;
 }
 
 export function i8080_ADI(this: i8080): number {
@@ -83,7 +83,7 @@ export function i8080_ADI(this: i8080): number {
     this.flags.z = this.regs.a === 0;
     this.flags.s = (this.regs.a & 0x80) !== 0;
     this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
-    return 2;
+    return 7;
 }
 
 export function i8080_XRA(this: i8080, src: Register) {
@@ -95,6 +95,6 @@ export function i8080_XRA(this: i8080, src: Register) {
     this.flags.s = (this.regs.a & 0x80) !== 0;
     this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
     this.flags.cy = this.flags.ac = false;
-    return src === Register.M ? 2 : 1;
+    return src === Register.M ? 7 : 4;
     
 }
