@@ -1,6 +1,6 @@
 import i8080 from "./i8080";
 import { Register, RegisterPair } from "./i8080_InstructionEnums";
-import { i8080_JMP } from "./Instructions/i8080_Branch";
+import { i8080_CALL, i8080_JMP } from "./Instructions/i8080_Branch";
 import { i8080_LXI, i8080_MVI } from "./Instructions/i8080_DataTransfer";
 
 export class i8080InstructionLUT {
@@ -21,7 +21,8 @@ export class i8080InstructionLUT {
             0x31: i8080_LXI.bind(cpu, RegisterPair.SP),
             0x36: i8080_MVI.bind(cpu, Register.M),
             0x3e: i8080_MVI.bind(cpu, Register.A),
-            0xc3: i8080_JMP
+            0xc3: i8080_JMP,
+            0xcd: i8080_CALL
         }
     }
 }
