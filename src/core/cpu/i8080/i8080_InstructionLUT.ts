@@ -1,7 +1,7 @@
 import i8080 from "./i8080";
 import { BranchCondition, Register, RegisterPair } from "./i8080_InstructionEnums";
 import { i8080_DCR, i8080_INX } from "./Instructions/i8080_Arithmetic";
-import { i8080_CALL, i8080_Jcond, i8080_JMP } from "./Instructions/i8080_Branch";
+import { i8080_CALL, i8080_Jcond, i8080_JMP, i8080_RET } from "./Instructions/i8080_Branch";
 import { i8080_LDAX, i8080_LXI, i8080_MOV, i8080_MVI } from "./Instructions/i8080_DataTransfer";
 
 export class i8080InstructionLUT {
@@ -102,6 +102,7 @@ export class i8080InstructionLUT {
             0x7f: i8080_MOV.bind(cpu, Register.A, Register.A),
             0xc2: i8080_Jcond.bind(cpu, BranchCondition.NZ),
             0xc3: i8080_JMP,
+            0xc9: i8080_RET,
             0xca: i8080_Jcond.bind(cpu, BranchCondition.Z),
             0xcd: i8080_CALL,
             0xd2: i8080_Jcond.bind(cpu, BranchCondition.NC),
