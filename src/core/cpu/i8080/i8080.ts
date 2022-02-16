@@ -85,7 +85,10 @@ export default class i8080 extends CPU {
     }
     
     public reset(addr: number): void {
-        throw new Error("Method not implemented.");
+        this.bus.write((this.pc & 0xff00) >> 8, --this.regs.sp);
+        this.bus.write(this.pc & 0xff, --this.regs.sp);
+        this.pc = addr;
+        this.cycles += 3;
     }
     
 }
