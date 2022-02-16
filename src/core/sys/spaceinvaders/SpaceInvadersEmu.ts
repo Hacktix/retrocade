@@ -51,10 +51,14 @@ export default class SpaceInvadersEmu {
 
     /** Ticks the emulator by an entire frame. */
     private tickFrame() {
-        while(this.cpu.cycles < 2097152)
-            this.cpu.tick();
-        this.renderContext.putImageData(this.bitmap, 0, 0);
-        requestAnimationFrame(() => this.tickFrame());
+        try {
+            while(this.cpu.cycles < 2097152)
+                this.cpu.tick();
+            this.renderContext.putImageData(this.bitmap, 0, 0);
+            requestAnimationFrame(() => this.tickFrame());
+        } catch(e) {
+            this.renderContext.putImageData(this.bitmap, 0, 0);
+        }
     }
 
 }

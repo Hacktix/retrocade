@@ -34,9 +34,9 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
             const xBase = Math.floor((addr - 0x2400) / 0x20);
             const yBase = (SCREEN_HEIGHT-1) - 8*(addr & 0x1F);
             for(let i = 0; i < 8; i++) {
-                const lit = (val & 0x80) > 0;
+                const lit = (val & 1) !== 0;
                 this.draw(xBase, yBase - i, lit);
-                val <<= 1;
+                val >>= 1;
             }
         }
         else
