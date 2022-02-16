@@ -1,8 +1,9 @@
 import i8080 from "./i8080";
 import { BranchCondition, Register, RegisterPair } from "./i8080_InstructionEnums";
-import { i8080_ADI, i8080_ANA, i8080_ANI, i8080_CPI, i8080_DAD, i8080_DCR, i8080_INX, i8080_ORA, i8080_RRC, i8080_STC, i8080_SUI, i8080_XRA } from "./Instructions/i8080_Arithmetic";
+import { i8080_ADI, i8080_DAD, i8080_DCR, i8080_INX, i8080_SUI } from "./Instructions/i8080_Arithmetic";
 import { i8080_CALL, i8080_Jcond, i8080_JMP, i8080_PCHL, i8080_Rcond, i8080_RET } from "./Instructions/i8080_Branch";
 import { i8080_LDA, i8080_LDAX, i8080_LXI, i8080_MOV, i8080_MVI, i8080_STA, i8080_XCHG } from "./Instructions/i8080_DataTransfer";
+import { i8080_ANA, i8080_ANI, i8080_CPI, i8080_ORA, i8080_RRC, i8080_STC, i8080_XRA } from "./Instructions/i8080_Logical";
 import { i8080_EI, i8080_IN, i8080_OUT, i8080_POP, i8080_PUSH, i8080_XTHL } from "./Instructions/i8080_StackIO";
 
 export class i8080InstructionLUT {
