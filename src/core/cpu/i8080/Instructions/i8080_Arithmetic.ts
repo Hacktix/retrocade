@@ -47,3 +47,29 @@ export function i8080_DAD(this: i8080, src: RegisterPair) {
     this.regs.hl += this.regs[src];
     return 3;
 }
+
+export function i8080_RRC(this: i8080): number {
+    this.flags.cy = (this.regs.a & 1) === 1;
+    this.regs.a = (this.regs.a >> 1) | (this.flags.cy ? (1 << 7) : 0);
+    return 1;
+}
+
+export function i8080_ANI(this: i8080): number {
+    this.regs.a &= this.bus.read(this.pc++);
+    this.flags.z = this.regs.a === 0;
+    this.flags.s = (this.regs.a & 0x80) !== 0;
+    this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
+    this.flags.cy = this.flags.ac = false;
+    return 2;
+}
+
+export function i8080_ADI(this: i8080): number {
+    const addVal = this.bus.read(this.pc++);
+    this.flags.cy = (this.regs.a + addVal) > 0xff;
+    this.flags.ac = (this.regs.a & 0xf) + (addVal & 0xf) > 0xf;
+    this.regs.a += addVal;
+    this.flags.z = this.regs.a === 0;
+    this.flags.s = (this.regs.a & 0x80) !== 0;
+    this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
+    return 2;
+}
