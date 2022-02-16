@@ -44,7 +44,7 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
     }
     
     public readIO(port: number): number {
-        throw new Error("Method not implemented.");
+        return 0;
     }
     
     public writeIO(port: number, value: number): void {

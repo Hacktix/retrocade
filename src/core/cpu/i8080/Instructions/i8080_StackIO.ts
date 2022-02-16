@@ -7,6 +7,12 @@ export function i8080_OUT(this: i8080): number {
     return 3;
 }
 
+export function i8080_IN(this: i8080): number {
+    const port = this.bus.read(this.pc++);
+    this.regs.a = this.bus.readIO(port);
+    return 3;
+}
+
 export function i8080_EI(this: i8080): number {
     this.interruptsEnabled = true;
     return 1;

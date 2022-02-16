@@ -81,6 +81,7 @@ export default class i8080 extends CPU {
                 this.pc--;
                 throw new Error(`EMULATOR ERROR: Encountered unknown opcode $${opcode.toString(16).padStart(2, "0")} @ PC=$${this.pc.toString(16).padStart(4, "0")}`);
             }
+            throw e;
         }
     }
     
