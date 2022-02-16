@@ -16,6 +16,24 @@ export default class SpaceInvadersEmu {
     /** Framebuffer Bitmap containing image data which should be rendered. Drawn to `renderContext` whenever the `render()` function is called. */
     private bitmap: ImageData;
 
+    public constructor(rom: Uint8Array, renderContext: CanvasRenderingContext2D) {
+        // Initialize canvas
+        this.renderContext = renderContext;
+        this.bitmap = renderContext.createImageData(SCREEN_WIDTH, SCREEN_HEIGHT);
+        for(let i = 3; i < this.bitmap.data.length; i+= 4) {
+            this.bitmap.data[i] = 255;
+        }
+        renderContext.putImageData(this.bitmap, 0, 0);
+
+        // Initialize hardware
+        this.cpu = new i8080();
+        this.bus = new SpaceInvadersBus(rom, this.draw.bind(this));
+        this.cpu.connectToBus(this.bus);
+
+        // Start Emulator
+        requestAnimationFrame(() => this.tickFrame())
+    }
+
     /**
      * Sets a single pixel in the framebuffer to either lit or black
      * @param x The x-Coordinate of the pixel, relative to the top left.
@@ -31,24 +49,12 @@ export default class SpaceInvadersEmu {
         this.bitmap.data[pixelBase + 2] = colorValue;
     }
 
-    /** Render the entire framebuffer to the canvas. */
-    private render() {
+    /** Ticks the emulator by an entire frame. */
+    private tickFrame() {
+        while(this.cpu.cycles < 2097152)
+            this.cpu.tick();
         this.renderContext.putImageData(this.bitmap, 0, 0);
-    }
-
-    public constructor(rom: Uint8Array, renderContext: CanvasRenderingContext2D) {
-        // Initialize canvas
-        this.renderContext = renderContext;
-        this.bitmap = renderContext.createImageData(SCREEN_WIDTH, SCREEN_HEIGHT);
-        for(let i = 3; i < this.bitmap.data.length; i+= 4) {
-            this.bitmap.data[i] = 255;
-        }
-        renderContext.putImageData(this.bitmap, 0, 0);
-
-        // Initialize hardware
-        this.cpu = new i8080();
-        this.bus = new SpaceInvadersBus(rom, this.draw.bind(this), this.render.bind(this));
-        this.cpu.connectToBus(this.bus);
+        requestAnimationFrame(() => this.tickFrame());
     }
 
 }

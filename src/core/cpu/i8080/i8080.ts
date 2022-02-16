@@ -4,7 +4,7 @@ import { i8080InstructionLUT } from "./i8080_InstructionLUT";
 export default class i8080 extends CPU {
 
     private pc: number = 0;
-    private cycles: number = 0;
+    public cycles: number = 0;
 
     public tick(): void {
         const opcode = this.bus.read(this.pc++);

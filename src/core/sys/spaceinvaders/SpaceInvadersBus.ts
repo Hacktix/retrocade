@@ -8,13 +8,11 @@ export default class SpaceInvadersBus extends MemoryBus {
     private vram: Uint8Array = Uint8Array.from(new Array(0x1C00).fill(0));
 
     private draw: DrawFunction;
-    private render: Function;
 
-    public constructor(rom: Uint8Array, draw: DrawFunction, render: Function) {
+    public constructor(rom: Uint8Array, draw: DrawFunction) {
         super();
         this.rom = rom;
         this.draw = draw;
-        this.render = render;
     }
 
     public read(addr: number): number {
@@ -40,8 +38,6 @@ export default class SpaceInvadersBus extends MemoryBus {
                 this.draw(xBase, yBase - i, lit);
                 val <<= 1;
             }
-            // TODO: Remove this render call, hook it to requestAnimationFrame instead
-            this.render();
         }
         else
             this.ram[addr % this.ram.length] = val;
