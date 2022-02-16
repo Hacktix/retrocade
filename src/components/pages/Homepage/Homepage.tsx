@@ -38,7 +38,7 @@ export default function Homepage() {
             </p>
             <div>
                 Development Progress:
-                <ProgressBar value={5} />
+                <ProgressBar value={15} />
             </div>
             <br />
 
