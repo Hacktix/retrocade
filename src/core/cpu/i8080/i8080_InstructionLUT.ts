@@ -1,6 +1,6 @@
 import i8080 from "./i8080";
 import { BranchCondition, Register, RegisterPair } from "./i8080_InstructionEnums";
-import { i8080_ADI, i8080_ANA, i8080_ANI, i8080_CPI, i8080_DAD, i8080_DCR, i8080_INX, i8080_RRC, i8080_XRA } from "./Instructions/i8080_Arithmetic";
+import { i8080_ADI, i8080_ANA, i8080_ANI, i8080_CPI, i8080_DAD, i8080_DCR, i8080_INX, i8080_ORA, i8080_RRC, i8080_STC, i8080_XRA } from "./Instructions/i8080_Arithmetic";
 import { i8080_CALL, i8080_Jcond, i8080_JMP, i8080_Rcond, i8080_RET } from "./Instructions/i8080_Branch";
 import { i8080_LDA, i8080_LDAX, i8080_LXI, i8080_MOV, i8080_MVI, i8080_STA, i8080_XCHG } from "./Instructions/i8080_DataTransfer";
 import { i8080_EI, i8080_IN, i8080_OUT, i8080_POP, i8080_PUSH } from "./Instructions/i8080_StackIO";
@@ -40,6 +40,7 @@ export class i8080InstructionLUT {
             0x33: i8080_INX.bind(cpu, RegisterPair.SP),
             0x35: i8080_DCR.bind(cpu, Register.M),
             0x36: i8080_MVI.bind(cpu, Register.M),
+            0x37: i8080_STC,
             0x39: i8080_DAD.bind(cpu, RegisterPair.SP),
             0x3a: i8080_LDA,
             0x3d: i8080_DCR.bind(cpu, Register.A),
@@ -124,6 +125,14 @@ export class i8080InstructionLUT {
             0xad: i8080_XRA.bind(cpu, Register.L),
             0xae: i8080_XRA.bind(cpu, Register.M),
             0xaf: i8080_XRA.bind(cpu, Register.A),
+            0xb0: i8080_ORA.bind(cpu, Register.B),
+            0xb1: i8080_ORA.bind(cpu, Register.C),
+            0xb2: i8080_ORA.bind(cpu, Register.D),
+            0xb3: i8080_ORA.bind(cpu, Register.E),
+            0xb4: i8080_ORA.bind(cpu, Register.H),
+            0xb5: i8080_ORA.bind(cpu, Register.L),
+            0xb6: i8080_ORA.bind(cpu, Register.M),
+            0xb7: i8080_ORA.bind(cpu, Register.A),
             0xc0: i8080_Rcond.bind(cpu, BranchCondition.NZ),
             0xc1: i8080_POP.bind(cpu, RegisterPair.BC),
             0xc2: i8080_Jcond.bind(cpu, BranchCondition.NZ),

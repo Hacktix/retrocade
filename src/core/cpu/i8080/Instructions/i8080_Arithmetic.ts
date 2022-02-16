@@ -75,6 +75,18 @@ export function i8080_ANA(this: i8080, src: Register): number {
     return src === Register.M ? 7 : 4;
 }
 
+export function i8080_ORA(this: i8080, src: Register): number {
+    if(src === Register.M)
+        this.regs.a |= this.bus.read(this.regs.hl);
+    else
+        this.regs.a |= this.regs[src];
+    this.flags.z = this.regs.a === 0;
+    this.flags.s = (this.regs.a & 0x80) !== 0;
+    this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
+    this.flags.cy = this.flags.ac = false;
+    return src === Register.M ? 7 : 4;
+}
+
 export function i8080_ADI(this: i8080): number {
     const addVal = this.bus.read(this.pc++);
     this.flags.cy = (this.regs.a + addVal) > 0xff;
@@ -97,4 +109,9 @@ export function i8080_XRA(this: i8080, src: Register) {
     this.flags.cy = this.flags.ac = false;
     return src === Register.M ? 7 : 4;
     
+}
+
+export function i8080_STC(this: i8080) {
+    this.flags.cy = true;
+    return 4;
 }
