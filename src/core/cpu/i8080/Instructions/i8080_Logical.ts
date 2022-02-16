@@ -34,6 +34,15 @@ export function i8080_XRA(this: i8080, src: Register) {
     return src === Register.M ? 7 : 4;
 }
 
+export function i8080_ORI(this: i8080): number {
+    this.regs.a |= this.bus.read(this.pc++);
+    this.flags.z = this.regs.a === 0;
+    this.flags.s = (this.regs.a & 0x80) !== 0;
+    this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
+    this.flags.cy = this.flags.ac = false;
+    return 7;
+}
+
 export function i8080_ORA(this: i8080, src: Register): number {
     if(src === Register.M)
         this.regs.a |= this.bus.read(this.regs.hl);
@@ -66,6 +75,13 @@ export function i8080_RLC(this: i8080): number {
 export function i8080_RRC(this: i8080): number {
     this.flags.cy = (this.regs.a & 1) === 1;
     this.regs.a = (this.regs.a >> 1) | (this.flags.cy ? (1 << 7) : 0);
+    return 4;
+}
+
+export function i8080_RAR(this: i8080): number {
+    const setCarry = (this.regs.a & 1) === 1;
+    this.regs.a = (this.regs.a >> 1) | (this.flags.cy ? 0x80 : 0);
+    this.flags.cy = setCarry;
     return 4;
 }
 

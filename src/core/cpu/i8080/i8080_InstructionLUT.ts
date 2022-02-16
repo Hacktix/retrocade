@@ -2,8 +2,8 @@ import i8080 from "./i8080";
 import { BranchCondition, Register, RegisterPair } from "./i8080_InstructionEnums";
 import { i8080_ADI, i8080_DAD, i8080_DCR, i8080_DCX, i8080_INX, i8080_SUI } from "./Instructions/i8080_Arithmetic";
 import { i8080_CALL, i8080_Ccond, i8080_Jcond, i8080_JMP, i8080_PCHL, i8080_Rcond, i8080_RET } from "./Instructions/i8080_Branch";
-import { i8080_LDA, i8080_LDAX, i8080_LXI, i8080_MOV, i8080_MVI, i8080_STA, i8080_XCHG } from "./Instructions/i8080_DataTransfer";
-import { i8080_ANA, i8080_ANI, i8080_CPI, i8080_ORA, i8080_RLC, i8080_RRC, i8080_STC, i8080_XRA } from "./Instructions/i8080_Logical";
+import { i8080_LDA, i8080_LDAX, i8080_LHLD, i8080_LXI, i8080_MOV, i8080_MVI, i8080_STA, i8080_XCHG } from "./Instructions/i8080_DataTransfer";
+import { i8080_ANA, i8080_ANI, i8080_CPI, i8080_ORA, i8080_ORI, i8080_RAR, i8080_RLC, i8080_RRC, i8080_STC, i8080_XRA } from "./Instructions/i8080_Logical";
 import { i8080_EI, i8080_IN, i8080_OUT, i8080_POP, i8080_PUSH, i8080_XTHL } from "./Instructions/i8080_StackIO";
 
 export class i8080InstructionLUT {
@@ -32,11 +32,13 @@ export class i8080InstructionLUT {
             0x1b: i8080_DCX.bind(cpu, RegisterPair.DE),
             0x1d: i8080_DCR.bind(cpu, Register.E),
             0x1e: i8080_MVI.bind(cpu, Register.E),
+            0x1f: i8080_RAR,
             0x21: i8080_LXI.bind(cpu, RegisterPair.HL),
             0x23: i8080_INX.bind(cpu, RegisterPair.HL),
             0x25: i8080_DCR.bind(cpu, Register.H),
             0x26: i8080_MVI.bind(cpu, Register.H),
             0x29: i8080_DAD.bind(cpu, RegisterPair.HL),
+            0x2a: i8080_LHLD,
             0x2b: i8080_DCX.bind(cpu, RegisterPair.HL),
             0x2d: i8080_DCR.bind(cpu, Register.L),
             0x2e: i8080_MVI.bind(cpu, Register.L),
@@ -179,6 +181,7 @@ export class i8080InstructionLUT {
             0xf2: i8080_Jcond.bind(cpu, BranchCondition.P),
             0xf4: i8080_Ccond.bind(cpu, BranchCondition.P),
             0xf5: i8080_PUSH.bind(cpu, RegisterPair.SP),
+            0xf6: i8080_ORI,
             0xf8: i8080_Rcond.bind(cpu, BranchCondition.M),
             0xfa: i8080_Jcond.bind(cpu, BranchCondition.M),
             0xfb: i8080_EI,

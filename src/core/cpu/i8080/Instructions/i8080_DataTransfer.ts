@@ -59,3 +59,11 @@ export function i8080_STA(this: i8080) {
     this.bus.write(this.regs.a, addr);
     return 13;
 }
+
+export function i8080_LHLD(this: i8080) {
+    const addr = this.bus.read(this.pc) | (this.bus.read(this.pc + 1) << 8);
+    this.pc += 2;
+    this.regs.l = this.bus.read(addr);
+    this.regs.h = this.bus.read(addr + 1);
+    return 16;
+}
