@@ -3,7 +3,7 @@ import { i8080InstructionLUT } from "./i8080_InstructionLUT";
 
 export default class i8080 extends CPU {
 
-    private pc: number = 0;
+    protected pc: number = 0;
     public cycles: number = 0;
 
     public tick(): void {
@@ -13,9 +13,7 @@ export default class i8080 extends CPU {
         } catch(e: any) {
             if(e.stack.includes("TypeError")) {
                 this.pc--;
-                const msg = `EMULATOR ERROR: Encountered unknown opcode $${opcode.toString(16).padStart(2, "0")} @ PC=$${this.pc.toString(16).padStart(4, "0")}`;
-                alert(msg);
-                throw new Error(msg);
+                throw new Error(`EMULATOR ERROR: Encountered unknown opcode $${opcode.toString(16).padStart(2, "0")} @ PC=$${this.pc.toString(16).padStart(4, "0")}`);
             }
         }
     }
