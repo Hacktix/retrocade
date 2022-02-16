@@ -1,6 +1,12 @@
 import i8080 from "../i8080";
 import { RegisterPair } from "../i8080_InstructionEnums";
 
+export function i8080_OUT(this: i8080): number {
+    const port = this.bus.read(this.pc++);
+    this.bus.writeIO(port, this.regs.a);
+    return 3;
+}
+
 export function i8080_PUSH(this: i8080, src: RegisterPair): number {
     if(src === RegisterPair.SP) {
         // SP is actually PSW

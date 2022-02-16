@@ -1,7 +1,10 @@
 import CPU from "../../base/CPU";
 import { i8080InstructionLUT } from "./i8080_InstructionLUT";
+import i8080MemoryBus from "./i8080_MemoryBus";
 
 export default class i8080 extends CPU {
+
+    protected bus!: i8080MemoryBus;
 
     private lut: i8080InstructionLUT = new i8080InstructionLUT(this);
 

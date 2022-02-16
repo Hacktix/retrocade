@@ -1,7 +1,7 @@
-import MemoryBus from "../../base/MemoryBus";
+import i8080MemoryBus from "../../cpu/i8080/i8080_MemoryBus";
 import { DrawFunction, SCREEN_HEIGHT } from "./SpaceInvadersEmu";
 
-export default class SpaceInvadersBus extends MemoryBus {
+export default class SpaceInvadersBus extends i8080MemoryBus {
 
     private rom: Uint8Array;
     private ram: Uint8Array = Uint8Array.from(new Array(0x400).fill(0));
@@ -41,6 +41,14 @@ export default class SpaceInvadersBus extends MemoryBus {
         }
         else
             this.ram[addr % this.ram.length] = val;
+    }
+    
+    public readIO(port: number): number {
+        throw new Error("Method not implemented.");
+    }
+    
+    public writeIO(port: number, value: number): void {
+        console.log(`OUT: $${value.toString(16).padStart(2, "0")} -> Port ${port}`);
     }
 
 }
