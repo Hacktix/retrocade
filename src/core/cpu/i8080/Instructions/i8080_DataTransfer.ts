@@ -67,3 +67,11 @@ export function i8080_LHLD(this: i8080) {
     this.regs.h = this.bus.read(addr + 1);
     return 16;
 }
+
+export function i8080_SHLD(this: i8080) {
+    const addr = this.bus.read(this.pc) | (this.bus.read(this.pc + 1) << 8);
+    this.pc += 2;
+    this.bus.write(this.regs.l, addr);
+    this.bus.write(this.regs.h, addr + 1);
+    return 16;
+}

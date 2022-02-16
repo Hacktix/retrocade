@@ -85,6 +85,11 @@ export function i8080_RAR(this: i8080): number {
     return 4;
 }
 
+export function i8080_CMA(this: i8080) {
+    this.regs.a = (~this.regs.a);
+    return 4;
+}
+
 export function i8080_STC(this: i8080) {
     this.flags.cy = true;
     return 4;
