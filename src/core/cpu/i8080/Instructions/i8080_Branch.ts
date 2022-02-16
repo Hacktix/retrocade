@@ -60,3 +60,8 @@ export function i8080_Rcond(this: i8080, cond: BranchCondition): number {
     }
     return 5;
 }
+
+export function i8080_PCHL(this: i8080) {
+    this.pc = this.regs.hl;
+    return 5;
+}

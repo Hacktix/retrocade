@@ -56,3 +56,13 @@ export function i8080_POP(this: i8080, target: RegisterPair) {
     this.regs.sp += 2;
     return 10;
 }
+
+export function i8080_XTHL(this: i8080) {
+    const tmpL = this.regs.l;
+    this.regs.l = this.bus.read(this.regs.sp);
+    this.bus.write(tmpL, this.regs.sp);
+    const tmpH = this.regs.h;
+    this.regs.h = this.bus.read(this.regs.sp + 1);
+    this.bus.write(tmpH, this.regs.sp + 1);
+    return 18;
+}

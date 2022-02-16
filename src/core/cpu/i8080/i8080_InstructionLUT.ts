@@ -1,9 +1,9 @@
 import i8080 from "./i8080";
 import { BranchCondition, Register, RegisterPair } from "./i8080_InstructionEnums";
-import { i8080_ADI, i8080_ANA, i8080_ANI, i8080_CPI, i8080_DAD, i8080_DCR, i8080_INX, i8080_ORA, i8080_RRC, i8080_STC, i8080_XRA } from "./Instructions/i8080_Arithmetic";
-import { i8080_CALL, i8080_Jcond, i8080_JMP, i8080_Rcond, i8080_RET } from "./Instructions/i8080_Branch";
+import { i8080_ADI, i8080_ANA, i8080_ANI, i8080_CPI, i8080_DAD, i8080_DCR, i8080_INX, i8080_ORA, i8080_RRC, i8080_STC, i8080_SUI, i8080_XRA } from "./Instructions/i8080_Arithmetic";
+import { i8080_CALL, i8080_Jcond, i8080_JMP, i8080_PCHL, i8080_Rcond, i8080_RET } from "./Instructions/i8080_Branch";
 import { i8080_LDA, i8080_LDAX, i8080_LXI, i8080_MOV, i8080_MVI, i8080_STA, i8080_XCHG } from "./Instructions/i8080_DataTransfer";
-import { i8080_EI, i8080_IN, i8080_OUT, i8080_POP, i8080_PUSH } from "./Instructions/i8080_StackIO";
+import { i8080_EI, i8080_IN, i8080_OUT, i8080_POP, i8080_PUSH, i8080_XTHL } from "./Instructions/i8080_StackIO";
 
 export class i8080InstructionLUT {
     public table: {[key: number]: (this: i8080) => number};
@@ -148,15 +148,18 @@ export class i8080InstructionLUT {
             0xd2: i8080_Jcond.bind(cpu, BranchCondition.NC),
             0xd3: i8080_OUT,
             0xd5: i8080_PUSH.bind(cpu, RegisterPair.DE),
+            0xd6: i8080_SUI,
             0xd8: i8080_Rcond.bind(cpu, BranchCondition.C),
             0xda: i8080_Jcond.bind(cpu, BranchCondition.C),
             0xdb: i8080_IN,
             0xe0: i8080_Rcond.bind(cpu, BranchCondition.PO),
             0xe1: i8080_POP.bind(cpu, RegisterPair.HL),
             0xe2: i8080_Jcond.bind(cpu, BranchCondition.PO),
+            0xe3: i8080_XTHL,
             0xe5: i8080_PUSH.bind(cpu, RegisterPair.HL),
             0xe6: i8080_ANI,
             0xe8: i8080_Rcond.bind(cpu, BranchCondition.PE),
+            0xe9: i8080_PCHL,
             0xea: i8080_Jcond.bind(cpu, BranchCondition.PE),
             0xeb: i8080_XCHG,
             0xf0: i8080_Rcond.bind(cpu, BranchCondition.P),
