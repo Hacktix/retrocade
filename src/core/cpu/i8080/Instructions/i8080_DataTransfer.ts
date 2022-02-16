@@ -38,3 +38,10 @@ export function i8080_MOV(this: i8080, target: Register, src: Register) {
         return 1;
     }
 }
+
+export function i8080_XCHG(this: i8080) {
+    const tmp = this.regs.hl;
+    this.regs.hl = this.regs.de;
+    this.regs.de = tmp;
+    return 1;
+}

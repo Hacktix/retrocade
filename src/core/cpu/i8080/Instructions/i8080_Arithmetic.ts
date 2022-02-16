@@ -41,3 +41,9 @@ export function i8080_CPI(this: i8080) {
     this.flags.ac = (this.regs.a & 0xf) < (cp & 0xf);
     return 2;
 }
+
+export function i8080_DAD(this: i8080, src: RegisterPair) {
+    this.flags.cy = (this.regs.hl + this.regs[src]) > 0xffff;
+    this.regs.hl += this.regs[src];
+    return 3;
+}
