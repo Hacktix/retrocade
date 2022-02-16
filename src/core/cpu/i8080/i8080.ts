@@ -8,6 +8,14 @@ export default class i8080 extends CPU {
     protected pc: number = 0;
     public cycles: number = 0;
 
+    protected flags = {
+        s: false,
+        z: false,
+        p: false,
+        cy: false,
+        ac: false
+    }
+
     protected regs = {
         // Internal register values
         _a: 0,

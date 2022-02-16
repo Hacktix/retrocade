@@ -15,3 +15,5 @@ export enum Register {
     L = "l",
     M = "m"
 }
+
+export const PARITY_LOOKUP_TABLE = new Array(256).fill(0).map((_,i) => (i.toString(2).split("").filter(v => v === "1").length % 2) === 0);

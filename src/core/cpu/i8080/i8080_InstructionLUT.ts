@@ -1,5 +1,6 @@
 import i8080 from "./i8080";
 import { Register, RegisterPair } from "./i8080_InstructionEnums";
+import { i8080_DCR, i8080_INX } from "./Instructions/i8080_Arithmetic";
 import { i8080_CALL, i8080_JMP } from "./Instructions/i8080_Branch";
 import { i8080_LDAX, i8080_LXI, i8080_MOV, i8080_MVI } from "./Instructions/i8080_DataTransfer";
 
@@ -10,18 +11,30 @@ export class i8080InstructionLUT {
         this.table = {
             0x00: () => 1,
             0x01: i8080_LXI.bind(cpu, RegisterPair.BC),
+            0x03: i8080_INX.bind(cpu, RegisterPair.BC),
+            0x05: i8080_DCR.bind(cpu, Register.B),
             0x06: i8080_MVI.bind(cpu, Register.B),
             0x0a: i8080_LDAX.bind(cpu, RegisterPair.BC),
+            0x0d: i8080_DCR.bind(cpu, Register.C),
             0x0e: i8080_MVI.bind(cpu, Register.C),
             0x11: i8080_LXI.bind(cpu, RegisterPair.DE),
+            0x13: i8080_INX.bind(cpu, RegisterPair.DE),
+            0x15: i8080_DCR.bind(cpu, Register.D),
             0x16: i8080_MVI.bind(cpu, Register.D),
             0x1a: i8080_LDAX.bind(cpu, RegisterPair.DE),
+            0x1d: i8080_DCR.bind(cpu, Register.E),
             0x1e: i8080_MVI.bind(cpu, Register.E),
             0x21: i8080_LXI.bind(cpu, RegisterPair.HL),
+            0x23: i8080_INX.bind(cpu, RegisterPair.HL),
+            0x25: i8080_DCR.bind(cpu, Register.H),
             0x26: i8080_MVI.bind(cpu, Register.H),
+            0x2d: i8080_DCR.bind(cpu, Register.L),
             0x2e: i8080_MVI.bind(cpu, Register.L),
             0x31: i8080_LXI.bind(cpu, RegisterPair.SP),
+            0x33: i8080_INX.bind(cpu, RegisterPair.SP),
+            0x35: i8080_DCR.bind(cpu, Register.M),
             0x36: i8080_MVI.bind(cpu, Register.M),
+            0x3d: i8080_DCR.bind(cpu, Register.A),
             0x3e: i8080_MVI.bind(cpu, Register.A),
             0x40: i8080_MOV.bind(cpu, Register.B, Register.B),
             0x41: i8080_MOV.bind(cpu, Register.B, Register.C),
