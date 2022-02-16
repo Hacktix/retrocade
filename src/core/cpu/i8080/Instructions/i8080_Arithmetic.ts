@@ -105,3 +105,18 @@ export function i8080_SBI(this: i8080): number {
     this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
     return 7;
 }
+
+export function i8080_DAA(this: i8080): number {
+    if((this.regs.a & 0xf) > 9 || this.flags.ac) {
+        this.flags.ac = (this.regs.a & 0xf) + 6 > 0xf;
+        this.regs.a += 6;
+    }
+    if((this.regs.a & 0xf0) > (9 << 4) || this.flags.cy) {
+        this.flags.cy = this.regs.a + (6 << 4) > 0xff;
+        this.regs.a += (6 << 4);
+    }
+    this.flags.z = this.regs.a === 0;
+    this.flags.s = (this.regs.a & 0x80) !== 0;
+    this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
+    return 4;
+}
