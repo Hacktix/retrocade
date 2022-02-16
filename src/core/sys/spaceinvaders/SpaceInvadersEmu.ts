@@ -3,6 +3,7 @@ import SpaceInvadersBus from "./SpaceInvadersBus";
 
 export const SCREEN_WIDTH = 224;
 export const SCREEN_HEIGHT = 256;
+export const CYCLES_PER_FRAME = 4096;
 
 export type DrawFunction = (x: number, y: number, light: boolean) => void;
 
@@ -49,24 +50,28 @@ export default class SpaceInvadersEmu {
         this.bitmap.data[pixelBase + 2] = colorValue;
     }
 
+    private async render() {
+        this.renderContext.putImageData(this.bitmap, 0, 0);
+    }
+
     /** Ticks the emulator by an entire frame. */
     private tickFrame() {
         try {
             // Tick until first half of frame is done, fire interrupt if enabled
-            while(this.cpu.cycles < (2097152 / 2))
+            while(this.cpu.cycles < (CYCLES_PER_FRAME / 2))
                 this.cpu.tick();
             if(this.cpu.interruptsEnabled)
                 this.cpu.reset(0x8);
 
             // Continue ticking until full frame is done, fire interrupt if enabled
-            while(this.cpu.cycles < 2097152)
+            while(this.cpu.cycles < CYCLES_PER_FRAME)
                 this.cpu.tick();
             if(this.cpu.interruptsEnabled)
                 this.cpu.reset(0x10);
 
             // Reset cycle counter for frame and render framebuffer
-            this.cpu.cycles -= 2097152;
-            this.renderContext.putImageData(this.bitmap, 0, 0);
+            this.cpu.cycles -= CYCLES_PER_FRAME;
+            this.render();
             requestAnimationFrame(() => this.tickFrame());
         } catch(e) {
             this.renderContext.putImageData(this.bitmap, 0, 0);
