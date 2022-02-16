@@ -3,7 +3,7 @@ import { BranchCondition, Register, RegisterPair } from "./i8080_InstructionEnum
 import { i8080_ADD, i8080_ADI, i8080_DAA, i8080_DAD, i8080_DCR, i8080_DCX, i8080_INR, i8080_INX, i8080_SBI, i8080_SUI } from "./Instructions/i8080_Arithmetic";
 import { i8080_CALL, i8080_Ccond, i8080_Jcond, i8080_JMP, i8080_PCHL, i8080_Rcond, i8080_RET } from "./Instructions/i8080_Branch";
 import { i8080_LDA, i8080_LDAX, i8080_LHLD, i8080_LXI, i8080_MOV, i8080_MVI, i8080_SHLD, i8080_STA, i8080_XCHG } from "./Instructions/i8080_DataTransfer";
-import { i8080_ANA, i8080_ANI, i8080_CMA, i8080_CPI, i8080_ORA, i8080_ORI, i8080_RAR, i8080_RLC, i8080_RRC, i8080_STC, i8080_XRA } from "./Instructions/i8080_Logical";
+import { i8080_ANA, i8080_ANI, i8080_CMA, i8080_CMP, i8080_CPI, i8080_ORA, i8080_ORI, i8080_RAR, i8080_RLC, i8080_RRC, i8080_STC, i8080_XRA } from "./Instructions/i8080_Logical";
 import { i8080_EI, i8080_IN, i8080_OUT, i8080_POP, i8080_PUSH, i8080_XTHL } from "./Instructions/i8080_StackIO";
 
 export class i8080InstructionLUT {
@@ -160,6 +160,14 @@ export class i8080InstructionLUT {
             0xb5: i8080_ORA.bind(cpu, Register.L),
             0xb6: i8080_ORA.bind(cpu, Register.M),
             0xb7: i8080_ORA.bind(cpu, Register.A),
+            0xb8: i8080_CMP.bind(cpu, Register.B),
+            0xb9: i8080_CMP.bind(cpu, Register.C),
+            0xba: i8080_CMP.bind(cpu, Register.D),
+            0xbb: i8080_CMP.bind(cpu, Register.E),
+            0xbc: i8080_CMP.bind(cpu, Register.H),
+            0xbd: i8080_CMP.bind(cpu, Register.L),
+            0xbe: i8080_CMP.bind(cpu, Register.M),
+            0xbf: i8080_CMP.bind(cpu, Register.A),
             0xc0: i8080_Rcond.bind(cpu, BranchCondition.NZ),
             0xc1: i8080_POP.bind(cpu, RegisterPair.BC),
             0xc2: i8080_Jcond.bind(cpu, BranchCondition.NZ),

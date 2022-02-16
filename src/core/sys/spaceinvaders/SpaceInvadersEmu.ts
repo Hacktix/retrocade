@@ -3,7 +3,7 @@ import SpaceInvadersBus from "./SpaceInvadersBus";
 
 export const SCREEN_WIDTH = 224;
 export const SCREEN_HEIGHT = 256;
-export const CYCLES_PER_FRAME = 4096;
+export const CYCLES_PER_FRAME = 32768;
 
 export type DrawFunction = (x: number, y: number, light: boolean) => void;
 
