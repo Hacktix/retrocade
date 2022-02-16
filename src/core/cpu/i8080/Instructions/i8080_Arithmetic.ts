@@ -30,3 +30,14 @@ export function i8080_DCR(this: i8080, target: Register) {
         return 1;
     }
 }
+
+export function i8080_CPI(this: i8080) {
+    const cp = this.bus.read(this.pc++);
+    const cpRes = (this.regs.a - cp) & 0xff;
+    this.flags.z = cpRes === 0;
+    this.flags.s = (cpRes & 0x80) !== 0;
+    this.flags.p = PARITY_LOOKUP_TABLE[cpRes];
+    this.flags.cy = this.regs.a < cp;
+    this.flags.ac = (this.regs.a & 0xf) < (cp & 0xf);
+    return 2;
+}
