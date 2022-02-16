@@ -73,3 +73,16 @@ export function i8080_ADI(this: i8080): number {
     this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
     return 2;
 }
+
+export function i8080_XRA(this: i8080, src: Register) {
+    if(src === Register.M)
+        this.regs.a ^= this.bus.read(this.regs.hl);
+    else
+        this.regs.a ^= this.regs[src];
+    this.flags.z = this.regs.a === 0;
+    this.flags.s = (this.regs.a & 0x80) !== 0;
+    this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
+    this.flags.cy = this.flags.ac = false;
+    return src === Register.M ? 2 : 1;
+    
+}
