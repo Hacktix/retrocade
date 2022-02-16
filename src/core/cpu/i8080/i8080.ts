@@ -11,6 +11,8 @@ export default class i8080 extends CPU {
     protected pc: number = 0;
     public cycles: number = 0;
 
+    public interruptsEnabled: boolean = false;
+
     protected flags = {
         s: false,
         z: false,

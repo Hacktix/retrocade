@@ -3,7 +3,7 @@ import { BranchCondition, Register, RegisterPair } from "./i8080_InstructionEnum
 import { i8080_ADI, i8080_ANI, i8080_CPI, i8080_DAD, i8080_DCR, i8080_INX, i8080_RRC, i8080_XRA } from "./Instructions/i8080_Arithmetic";
 import { i8080_CALL, i8080_Jcond, i8080_JMP, i8080_RET } from "./Instructions/i8080_Branch";
 import { i8080_LDA, i8080_LDAX, i8080_LXI, i8080_MOV, i8080_MVI, i8080_STA, i8080_XCHG } from "./Instructions/i8080_DataTransfer";
-import { i8080_OUT, i8080_POP, i8080_PUSH } from "./Instructions/i8080_StackIO";
+import { i8080_EI, i8080_OUT, i8080_POP, i8080_PUSH } from "./Instructions/i8080_StackIO";
 
 export class i8080InstructionLUT {
     public table: {[key: number]: (this: i8080) => number};
@@ -139,6 +139,7 @@ export class i8080InstructionLUT {
             0xf2: i8080_Jcond.bind(cpu, BranchCondition.P),
             0xf5: i8080_PUSH.bind(cpu, RegisterPair.SP),
             0xfa: i8080_Jcond.bind(cpu, BranchCondition.M),
+            0xfb: i8080_EI,
             0xfe: i8080_CPI
         }
     }

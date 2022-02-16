@@ -52,8 +52,20 @@ export default class SpaceInvadersEmu {
     /** Ticks the emulator by an entire frame. */
     private tickFrame() {
         try {
+            // Tick until first half of frame is done, fire interrupt if enabled
+            while(this.cpu.cycles < (2097152 / 2))
+                this.cpu.tick();
+            if(this.cpu.interruptsEnabled)
+                this.cpu.reset(0x8);
+
+            // Continue ticking until full frame is done, fire interrupt if enabled
             while(this.cpu.cycles < 2097152)
                 this.cpu.tick();
+            if(this.cpu.interruptsEnabled)
+                this.cpu.reset(0x10);
+
+            // Reset cycle counter for frame and render framebuffer
+            this.cpu.cycles -= 2097152;
             this.renderContext.putImageData(this.bitmap, 0, 0);
             requestAnimationFrame(() => this.tickFrame());
         } catch(e) {

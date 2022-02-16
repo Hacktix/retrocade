@@ -48,7 +48,7 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
     }
     
     public writeIO(port: number, value: number): void {
-        console.log(`OUT: $${value.toString(16).padStart(2, "0")} -> Port ${port}`);
+        // console.log(`OUT: $${value.toString(16).padStart(2, "0")} -> Port ${port}`);
     }
 
 }

@@ -7,6 +7,11 @@ export function i8080_OUT(this: i8080): number {
     return 3;
 }
 
+export function i8080_EI(this: i8080): number {
+    this.interruptsEnabled = true;
+    return 1;
+}
+
 export function i8080_PUSH(this: i8080, src: RegisterPair): number {
     if(src === RegisterPair.SP) {
         // SP is actually PSW
