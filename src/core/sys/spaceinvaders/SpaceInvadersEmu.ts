@@ -58,6 +58,7 @@ export default class SpaceInvadersEmu {
             requestAnimationFrame(() => this.tickFrame());
         } catch(e) {
             this.renderContext.putImageData(this.bitmap, 0, 0);
+            throw e;
         }
     }
 

@@ -45,3 +45,17 @@ export function i8080_XCHG(this: i8080) {
     this.regs.de = tmp;
     return 1;
 }
+
+export function i8080_LDA(this: i8080) {
+    const addr = this.bus.read(this.pc) | (this.bus.read(this.pc + 1) << 8);
+    this.pc += 2;
+    this.regs.a = this.bus.read(addr);
+    return 4;
+}
+
+export function i8080_STA(this: i8080) {
+    const addr = this.bus.read(this.pc) | (this.bus.read(this.pc + 1) << 8);
+    this.pc += 2;
+    this.bus.write(this.regs.a, addr);
+    return 4;
+}
