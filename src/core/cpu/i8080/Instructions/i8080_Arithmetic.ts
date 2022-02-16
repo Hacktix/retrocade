@@ -6,6 +6,11 @@ export function i8080_INX(this: i8080, target: RegisterPair) {
     return 5;
 }
 
+export function i8080_DCX(this: i8080, target: RegisterPair) {
+    this.regs[target]--;
+    return 5;
+}
+
 export function i8080_DCR(this: i8080, target: Register) {
     if(target === Register.M) {
         const src = this.bus.read(this.regs.hl);

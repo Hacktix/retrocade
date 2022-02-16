@@ -57,6 +57,12 @@ export function i8080_CPI(this: i8080) {
     return 7;
 }
 
+export function i8080_RLC(this: i8080): number {
+    this.flags.cy = (this.regs.a & 0x80) !== 0;
+    this.regs.a = (this.regs.a << 1) | (this.flags.cy ? 1 : 0);
+    return 4;
+}
+
 export function i8080_RRC(this: i8080): number {
     this.flags.cy = (this.regs.a & 1) === 1;
     this.regs.a = (this.regs.a >> 1) | (this.flags.cy ? (1 << 7) : 0);
