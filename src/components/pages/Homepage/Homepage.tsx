@@ -12,6 +12,10 @@ export default function Homepage() {
         <>
             <p>Welcome to RETROCADE, your favorite browser-based emulator collection.</p>
             <p>This site is currently heavily Work-In-Progress, as it's still in the early stages of being set up. While you're waiting, have a nice cup of tea: 🍵</p>
+            <p>Also, RETROCADE is a project of The Citadel! Feel free to join our Discord Server:</p>
+            <a href="https://discord.gg/FZbJyn7tBm">
+                <img src="https://discordapp.com/api/guilds/943239712137691186/widget.png?style=banner2" alt="Discord Widget" />
+            </a>
 
             <hr />
 
@@ -38,7 +42,7 @@ export default function Homepage() {
             </p>
             <div>
                 Development Progress:
-                <ProgressBar value={15} />
+                <ProgressBar value={25} />
             </div>
             <br />
 
