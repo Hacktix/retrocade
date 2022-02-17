@@ -1,11 +1,13 @@
 import i8080MemoryBus from "../../cpu/i8080/i8080_MemoryBus";
 import { DrawFunction, SCREEN_HEIGHT } from "./SpaceInvadersEmu";
+import SpaceInvadersShiftReg from "./SpaceInvadersShiftReg";
 
 export default class SpaceInvadersBus extends i8080MemoryBus {
 
     private rom: Uint8Array;
     private ram: Uint8Array = Uint8Array.from(new Array(0x400).fill(0));
     private vram: Uint8Array = Uint8Array.from(new Array(0x1C00).fill(0));
+    private shiftReg: SpaceInvadersShiftReg = new SpaceInvadersShiftReg();
 
     private draw: DrawFunction;
 
@@ -44,11 +46,19 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
     }
     
     public readIO(port: number): number {
-        return 0;
+        switch(port) {
+            case 3:  return this.shiftReg.read();
+            default: return 0;
+        }
     }
     
     public writeIO(port: number, value: number): void {
-        // console.log(`OUT: $${value.toString(16).padStart(2, "0")} -> Port ${port}`);
+        switch(port) {
+            case 2:
+            case 4:
+                this.shiftReg.write(port, value);
+                break;
+        }
     }
 
 }
