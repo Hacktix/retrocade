@@ -1,0 +1,54 @@
+.EmulatorContainer {
+    display: flex;
+    justify-content: center;
+    height: 70vh;
+}
+
+.GameControlsDesktop {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+.GameControlsMobile {
+    display: flex;
+    justify-content: space-around;
+}
+
+.GameButton {
+    width: 2em;
+    height: 2em;
+    margin: 0.25em;
+    border: 1px solid red;
+    color: red;
+    background-color: transparent;
+    border-radius: 0.5em;
+    font-size: 2em;
+    user-select: none;
+    box-shadow:
+        0 0 1px red,
+        0 0 3px red,
+        0 0 5px red;
+}
+
+.GameButton:hover {
+    border: 1px solid #f22;
+    color: #f22;
+    box-shadow:
+        0 0 1px #f22,
+        0 0 3px #f22,
+        0 0 5px #f22;
+}
+
+.GameButton:active {
+    border: 1px solid #a00;
+    color: #a00;
+    box-shadow:
+        0 0 1px #a00,
+        0 0 3px #a00,
+        0 0 5px #a00;
+}

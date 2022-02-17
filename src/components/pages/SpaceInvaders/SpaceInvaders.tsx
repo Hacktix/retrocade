@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
+import { BrowserView, MobileView } from "react-device-detect";
 import SpaceInvadersEmu, { SCREEN_HEIGHT, SCREEN_WIDTH } from "../../../core/sys/spaceinvaders/SpaceInvadersEmu";
 import EmulatorCanvas from "../../common/EmulatorCanvas/EmulatorCanvas";
+import "./SpaceInvaders.css";
 
 export default function SpaceInvaders() {
     const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> = useRef(null);
@@ -20,8 +22,29 @@ export default function SpaceInvaders() {
 
     return (
         <div className="EmulatorContainer">
-            <h2>Space Invaders</h2>
-            <EmulatorCanvas canvasRef={canvasRef} width={SCREEN_WIDTH} height={SCREEN_HEIGHT} />
+            <BrowserView className="GameControlsDesktop">
+                <button className="GameButton">&lt;</button>
+                <button className="GameButton">&gt;</button>
+            </BrowserView>
+            <div>
+                <h2>Space Invaders</h2>
+                <br /><br />
+                <EmulatorCanvas
+                    canvasRef={canvasRef}
+                    width={SCREEN_WIDTH}
+                    height={SCREEN_HEIGHT}
+                />
+                <MobileView className="GameControlsMobile">
+                    <button className="GameButton">&lt;</button>
+                    <button className="GameButton">&gt;</button>
+                    <button className="GameButton">⌾</button>
+                    <button className="GameButton">⍟</button>
+                </MobileView>
+            </div>
+            <BrowserView className="GameControlsDesktop">
+                <button className="GameButton">⌾</button>
+                <button className="GameButton">⍟</button>
+            </BrowserView>
         </div>
     )
 }
