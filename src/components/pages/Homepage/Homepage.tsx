@@ -42,7 +42,7 @@ export default function Homepage() {
             </p>
             <div>
                 Development Progress:
-                <ProgressBar value={35} status="Splash Screen works!" />
+                <ProgressBar value={50} status="Starting a game works!" />
             </div>
             <br />
 
