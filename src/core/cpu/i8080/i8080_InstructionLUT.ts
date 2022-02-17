@@ -1,6 +1,6 @@
 import i8080 from "./i8080";
 import { BranchCondition, Register, RegisterPair } from "./i8080_InstructionEnums";
-import { i8080_ADD, i8080_ADI, i8080_DAA, i8080_DAD, i8080_DCR, i8080_DCX, i8080_INR, i8080_INX, i8080_SBI, i8080_SUI } from "./Instructions/i8080_Arithmetic";
+import { i8080_ADD, i8080_ADI, i8080_DAA, i8080_DAD, i8080_DCR, i8080_DCX, i8080_INR, i8080_INX, i8080_SBI, i8080_SUB, i8080_SUI } from "./Instructions/i8080_Arithmetic";
 import { i8080_CALL, i8080_Ccond, i8080_Jcond, i8080_JMP, i8080_PCHL, i8080_Rcond, i8080_RET } from "./Instructions/i8080_Branch";
 import { i8080_LDA, i8080_LDAX, i8080_LHLD, i8080_LXI, i8080_MOV, i8080_MVI, i8080_SHLD, i8080_STA, i8080_XCHG } from "./Instructions/i8080_DataTransfer";
 import { i8080_ANA, i8080_ANI, i8080_CMA, i8080_CMP, i8080_CPI, i8080_ORA, i8080_ORI, i8080_RAR, i8080_RLC, i8080_RRC, i8080_STC, i8080_XRA } from "./Instructions/i8080_Logical";
@@ -136,6 +136,14 @@ export class i8080InstructionLUT {
             0x85: i8080_ADD.bind(cpu, Register.L),
             0x86: i8080_ADD.bind(cpu, Register.M),
             0x87: i8080_ADD.bind(cpu, Register.A),
+            0x90: i8080_SUB.bind(cpu, Register.B),
+            0x91: i8080_SUB.bind(cpu, Register.C),
+            0x92: i8080_SUB.bind(cpu, Register.D),
+            0x93: i8080_SUB.bind(cpu, Register.E),
+            0x94: i8080_SUB.bind(cpu, Register.H),
+            0x95: i8080_SUB.bind(cpu, Register.L),
+            0x96: i8080_SUB.bind(cpu, Register.M),
+            0x97: i8080_SUB.bind(cpu, Register.A),
             0xa0: i8080_ANA.bind(cpu, Register.B),
             0xa1: i8080_ANA.bind(cpu, Register.C),
             0xa2: i8080_ANA.bind(cpu, Register.D),
