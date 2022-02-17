@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.a5d570e8.css",
-    "main.js": "/static/js/main.77316878.js",
+    "main.css": "/static/css/main.fc8725b6.css",
+    "main.js": "/static/js/main.81b1eb0b.js",
     "static/media/SairaCondensed-Regular.ttf": "/static/media/SairaCondensed-Regular.9e926a7c524c795295e3.ttf",
     "static/media/RussoOne-Regular.ttf": "/static/media/RussoOne-Regular.b2f5b287ccb8fd446eae.ttf",
+    "static/media/spaceinvaders.jpg": "/static/media/spaceinvaders.e4ea14dfca8202d30d8d.jpg",
     "index.html": "/index.html",
-    "main.a5d570e8.css.map": "/static/css/main.a5d570e8.css.map",
-    "main.77316878.js.map": "/static/js/main.77316878.js.map"
+    "main.fc8725b6.css.map": "/static/css/main.fc8725b6.css.map",
+    "main.81b1eb0b.js.map": "/static/js/main.81b1eb0b.js.map"
   },
   "entrypoints": [
-    "static/css/main.a5d570e8.css",
-    "static/js/main.77316878.js"
+    "static/css/main.fc8725b6.css",
+    "static/js/main.81b1eb0b.js"
   ]
 }
