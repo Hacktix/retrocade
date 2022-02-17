@@ -7,6 +7,10 @@ export const CYCLES_PER_FRAME = 32768;
 
 export type DrawFunction = (x: number, y: number, light: boolean) => void;
 
+export enum SpaceInvadersInput {
+    Left, Right, Fire, Credit
+}
+
 export default class SpaceInvadersEmu {
 
     private bus: SpaceInvadersBus;
@@ -50,6 +54,7 @@ export default class SpaceInvadersEmu {
         this.bitmap.data[pixelBase + 2] = colorValue;
     }
 
+    /** Renders the framebuffer to the emulator canvas */
     private async render() {
         this.renderContext.putImageData(this.bitmap, 0, 0);
     }
@@ -77,6 +82,10 @@ export default class SpaceInvadersEmu {
             this.renderContext.putImageData(this.bitmap, 0, 0);
             throw e;
         }
+    }
+
+    public setInputState(input: SpaceInvadersInput, state: boolean): void {
+        this.bus.input[input] = state;
     }
 
 }

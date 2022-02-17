@@ -1,5 +1,5 @@
 import i8080MemoryBus from "../../cpu/i8080/i8080_MemoryBus";
-import { DrawFunction, SCREEN_HEIGHT } from "./SpaceInvadersEmu";
+import { DrawFunction, SCREEN_HEIGHT, SpaceInvadersInput } from "./SpaceInvadersEmu";
 import SpaceInvadersShiftReg from "./SpaceInvadersShiftReg";
 
 export default class SpaceInvadersBus extends i8080MemoryBus {
@@ -8,6 +8,13 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
     private ram: Uint8Array = Uint8Array.from(new Array(0x400).fill(0));
     private vram: Uint8Array = Uint8Array.from(new Array(0x1C00).fill(0));
     private shiftReg: SpaceInvadersShiftReg = new SpaceInvadersShiftReg();
+
+    public input = {
+        [SpaceInvadersInput.Left]: false,
+        [SpaceInvadersInput.Right]: false,
+        [SpaceInvadersInput.Fire]: false,
+        [SpaceInvadersInput.Credit]: false
+    }
 
     private draw: DrawFunction;
 
@@ -47,8 +54,26 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
     
     public readIO(port: number): number {
         switch(port) {
-            case 3:  return this.shiftReg.read();
-            default: return 0;
+            case 0:
+                return 0b1110
+                    | (this.input[SpaceInvadersInput.Fire]  ? (1 << 4) : 0)
+                    | (this.input[SpaceInvadersInput.Left]  ? (1 << 5) : 0)
+                    | (this.input[SpaceInvadersInput.Right] ? (1 << 6) : 0);
+            case 1:
+                return 0b1000
+                    | (this.input[SpaceInvadersInput.Credit] ? 1 : 0)
+                    | (this.input[SpaceInvadersInput.Fire]   ? 0b10110 : 0)
+                    | (this.input[SpaceInvadersInput.Left]   ? (1 << 5) : 0)
+                    | (this.input[SpaceInvadersInput.Right]  ? (1 << 6) : 0);
+            case 2:
+                return 0
+                    | (this.input[SpaceInvadersInput.Fire]   ? (1 << 4) : 0)
+                    | (this.input[SpaceInvadersInput.Left]   ? (1 << 5) : 0)
+                    | (this.input[SpaceInvadersInput.Right]  ? (1 << 6) : 0);
+            case 3:
+                return this.shiftReg.read();
+            default:
+                return 0;
         }
     }
     
