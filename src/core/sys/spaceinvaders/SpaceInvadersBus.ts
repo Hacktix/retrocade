@@ -26,7 +26,7 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
 
     public write(val: number, addr: number): void {
         if(addr < 0x2000)
-            this.rom[addr] = val;
+            return;
         else if(addr < 0x2400)
             this.ram[addr & 0x3FF] = val;
         else if(addr < 0x4000) {
