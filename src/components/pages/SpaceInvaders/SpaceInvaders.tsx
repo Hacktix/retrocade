@@ -96,6 +96,14 @@ export default function SpaceInvaders() {
                         className="GameButton"
                     >⍟</button>
                 </MobileView>
+                <BrowserView>
+                    <p>
+                        <b>Keyboard Controls:</b><br />
+                        Arrow Keys - Move Left / Right<br />
+                        Space - Shoot / Start Game<br />
+                        Shift - Insert Coin
+                    </p>
+                </BrowserView>
             </div>
             <BrowserView className="GameControlsDesktop">
                 <button
