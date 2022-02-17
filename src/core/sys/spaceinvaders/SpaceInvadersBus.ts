@@ -13,7 +13,9 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
         [SpaceInvadersInput.Left]: false,
         [SpaceInvadersInput.Right]: false,
         [SpaceInvadersInput.Fire]: false,
-        [SpaceInvadersInput.Credit]: false
+        [SpaceInvadersInput.Credit]: false,
+        [SpaceInvadersInput.Start1P]: false,
+        [SpaceInvadersInput.Start2P]: false
     }
 
     private draw: DrawFunction;
@@ -61,10 +63,12 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
                     | (this.input[SpaceInvadersInput.Right] ? (1 << 6) : 0);
             case 1:
                 return 0b1000
-                    | (this.input[SpaceInvadersInput.Credit] ? 1 : 0)
-                    | (this.input[SpaceInvadersInput.Fire]   ? 0b10110 : 0)
-                    | (this.input[SpaceInvadersInput.Left]   ? (1 << 5) : 0)
-                    | (this.input[SpaceInvadersInput.Right]  ? (1 << 6) : 0);
+                    | (this.input[SpaceInvadersInput.Credit]  ? 1 : 0)
+                    | (this.input[SpaceInvadersInput.Start2P] ? (1 << 1) : 0)
+                    | (this.input[SpaceInvadersInput.Start1P] ? (1 << 2) : 0)
+                    | (this.input[SpaceInvadersInput.Fire]    ? (1 << 4) : 0)
+                    | (this.input[SpaceInvadersInput.Left]    ? (1 << 5) : 0)
+                    | (this.input[SpaceInvadersInput.Right]   ? (1 << 6) : 0);
             case 2:
                 return 0
                     | (this.input[SpaceInvadersInput.Fire]   ? (1 << 4) : 0)
