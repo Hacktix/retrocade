@@ -19,10 +19,10 @@
     justify-content: space-around;
 }
 
-.GameButton {
-    width: 2em;
-    height: 2em;
-    margin: 0.25em;
+.GameButtonDesktop {
+    width: 5em;
+    height: 2.5em;
+    margin: 0.5em;
     border: 1px solid red;
     color: red;
     background-color: transparent;
@@ -35,7 +35,23 @@
         0 0 5px red;
 }
 
-.GameButton:hover {
+.GameButtonMobile {
+    width: 2.15em;
+    height: 2.5em;
+    margin: 0.1em;
+    border: 1px solid red;
+    color: red;
+    background-color: transparent;
+    border-radius: 0.5em;
+    font-size: 1.5em;
+    user-select: none;
+    box-shadow:
+        0 0 1px red,
+        0 0 3px red,
+        0 0 5px red;
+}
+
+.GameButtonDesktop:hover, .GameButtonMobile:hover {
     border: 1px solid #f22;
     color: #f22;
     box-shadow:
@@ -44,7 +60,7 @@
         0 0 5px #f22;
 }
 
-.GameButton:active {
+.GameButtonDesktop:active, .GameButtonMobile:active {
     border: 1px solid #a00;
     color: #a00;
     box-shadow:

@@ -55,21 +55,21 @@ export default function SpaceInvaders() {
 
     return (
         <div className="EmulatorContainer">
-            <BrowserView className="GameControlsDesktop">
+            <BrowserView className="GameControlsDesktop" style={{alignItems: "flex-end"}}>
                 <button
                     onMouseDown={() => pressButton(SpaceInvadersInput.Left)}
                     onMouseUp={() => unpressButton(SpaceInvadersInput.Left)}
-                    className="GameButton"
+                    className="GameButtonDesktop"
                 >&lt;</button>
                 <button
                     onMouseDown={() => pressButton(SpaceInvadersInput.Right)}
                     onMouseUp={() => unpressButton(SpaceInvadersInput.Right)}
-                    className="GameButton"
+                    className="GameButtonDesktop"
                 >&gt;</button>
                 <button
                     onMouseDown={() => pressButton(SpaceInvadersInput.Start1P)}
                     onMouseUp={() => unpressButton(SpaceInvadersInput.Start1P)}
-                    className="GameButton"
+                    className="GameButtonDesktop"
                 >1P</button>
             </BrowserView>
             <div>
@@ -82,35 +82,35 @@ export default function SpaceInvaders() {
                 />
                 <MobileView className="GameControlsMobile">
                     <button
-                        onMouseDown={() => pressButton(SpaceInvadersInput.Start1P)}
-                        onMouseUp={() => unpressButton(SpaceInvadersInput.Start1P)}
-                        className="GameButton"
-                    >1P</button>
-                    <button
                         onTouchStart={() => pressButton(SpaceInvadersInput.Left)}
                         onTouchEnd={() => unpressButton(SpaceInvadersInput.Left)}
-                        className="GameButton"
+                        className="GameButtonMobile"
                     >&lt;</button>
                     <button
                         onTouchStart={() => pressButton(SpaceInvadersInput.Right)}
                         onTouchEnd={() => unpressButton(SpaceInvadersInput.Right)}
-                        className="GameButton"
+                        className="GameButtonMobile"
                     >&gt;</button>
+                    <button
+                        onTouchStart={() => pressButton(SpaceInvadersInput.Start1P)}
+                        onTouchEnd={() => unpressButton(SpaceInvadersInput.Start1P)}
+                        className="GameButtonMobile"
+                    >1P</button>
+                    <button
+                        onTouchStart={() => pressButton(SpaceInvadersInput.Start2P)}
+                        onTouchEnd={() => unpressButton(SpaceInvadersInput.Start2P)}
+                        className="GameButtonMobile"
+                    >2P</button>
                     <button
                         onTouchStart={() => pressButton(SpaceInvadersInput.Credit)}
                         onTouchEnd={() => unpressButton(SpaceInvadersInput.Credit)}
-                        className="GameButton"
+                        className="GameButtonMobile"
                     >⍟</button>
                     <button
                         onTouchStart={() => pressButton(SpaceInvadersInput.Fire)}
                         onTouchEnd={() => unpressButton(SpaceInvadersInput.Fire)}
-                        className="GameButton"
+                        className="GameButtonMobile"
                     >⌾</button>
-                    <button
-                        onMouseDown={() => pressButton(SpaceInvadersInput.Start2P)}
-                        onMouseUp={() => unpressButton(SpaceInvadersInput.Start2P)}
-                        className="GameButton"
-                    >2P</button>
                 </MobileView>
                 <BrowserView>
                     <p>
@@ -122,21 +122,21 @@ export default function SpaceInvaders() {
                     </p>
                 </BrowserView>
             </div>
-            <BrowserView className="GameControlsDesktop">
+            <BrowserView className="GameControlsDesktop" style={{alignItems: "flex-start"}}>
                 <button
                     onMouseDown={() => pressButton(SpaceInvadersInput.Fire)}
                     onMouseUp={() => unpressButton(SpaceInvadersInput.Fire)}
-                    className="GameButton"
+                    className="GameButtonDesktop"
                 >⌾</button>
                 <button
                     onMouseDown={() => pressButton(SpaceInvadersInput.Credit)}
                     onMouseUp={() => unpressButton(SpaceInvadersInput.Credit)}
-                    className="GameButton"
+                    className="GameButtonDesktop"
                 >⍟</button>
                 <button
                     onMouseDown={() => pressButton(SpaceInvadersInput.Start2P)}
                     onMouseUp={() => unpressButton(SpaceInvadersInput.Start2P)}
-                    className="GameButton"
+                    className="GameButtonDesktop"
                 >2P</button>
             </BrowserView>
         </div>
