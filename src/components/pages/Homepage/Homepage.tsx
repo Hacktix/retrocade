@@ -5,7 +5,7 @@ import SpaceInvadersLogo from "../../../assets/img/spaceinvaders.jpg";
 
 export default function Homepage() {
     const systems: Array<System> = [
-        /* { name: "Space Invaders", img: SpaceInvadersLogo, url: "/spaceinvaders" } */
+        { name: "Space Invaders", img: SpaceInvadersLogo, url: "/spaceinvaders" }
     ]
 
     return (
@@ -42,7 +42,7 @@ export default function Homepage() {
             </p>
             <div>
                 Development Progress:
-                <ProgressBar value={50} status="Starting a game works!" />
+                <ProgressBar value={55} status="Not done, but playable!" />
             </div>
             <br />
 
