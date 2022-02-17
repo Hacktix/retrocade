@@ -17,8 +17,30 @@ export default function SpaceInvaders() {
         fetch("/bin/invaders.bin").then(res => res.arrayBuffer().then(data => {
             const rom = new Uint8Array(data);
             emuRef.current = new SpaceInvadersEmu(rom, renderContext as CanvasRenderingContext2D);
+            
+            window.addEventListener("keydown", pressKeyboardButton);
+            window.addEventListener("keyup", unpressKeyboardButton);
         }))
     }, [canvasRef]);
+
+    const keyboardInputMap = {
+        "ArrowLeft": SpaceInvadersInput.Left,
+        "ArrowRight": SpaceInvadersInput.Right,
+        " ": SpaceInvadersInput.Fire,
+        "Shift": SpaceInvadersInput.Credit
+    };
+
+    function pressKeyboardButton(e: KeyboardEvent) {
+        // @ts-expect-error: Typescript complains about "string" not being a key of keyboardInputMap because those keys are statically defined,
+        //                   but we want to check whether or not it exists, so we *want* to access undefined keys here.
+        if(keyboardInputMap[e.key] !== undefined) pressButton(keyboardInputMap[e.key]);
+    }
+
+    function unpressKeyboardButton(e: KeyboardEvent) {
+        // @ts-expect-error: Typescript complains about "string" not being a key of keyboardInputMap because those keys are statically defined,
+        //                   but we want to check whether or not it exists, so we *want* to access undefined keys here.
+        if(keyboardInputMap[e.key] !== undefined) unpressButton(keyboardInputMap[e.key]);
+    }
 
     function pressButton(input: SpaceInvadersInput) {
         if(emuRef.current)
