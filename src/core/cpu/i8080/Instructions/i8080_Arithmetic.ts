@@ -23,6 +23,17 @@ export function i8080_ADI(this: i8080): number {
     return 7;
 }
 
+export function i8080_ADC(this: i8080, src: Register): number {
+    const addVal = (src === Register.M ? this.bus.read(this.regs.hl) : this.regs[src]) + (this.flags.cy ? 1 : 0);
+    this.flags.cy = (this.regs.a + addVal) > 0xff;
+    this.flags.ac = (this.regs.a & 0xf) + (addVal & 0xf) > 0xf;
+    this.regs.a += addVal;
+    this.flags.z = this.regs.a === 0;
+    this.flags.s = (this.regs.a & 0x80) !== 0;
+    this.flags.p = PARITY_LOOKUP_TABLE[this.regs.a];
+    return src === Register.M ? 7 : 4;
+}
+
 export function i8080_SUB(this: i8080, src: Register): number {
     const subVal = src === Register.M ? this.bus.read(this.regs.hl) : this.regs[src];
     this.flags.cy = (this.regs.a - subVal) < 0;

@@ -23,6 +23,11 @@ export function i8080_LDAX(this: i8080, src: RegisterPair) {
     return 7;
 }
 
+export function i8080_STAX(this: i8080, src: RegisterPair) {
+    this.bus.write(this.regs.a, this.regs[src]);
+    return 7;
+}
+
 export function i8080_MOV(this: i8080, target: Register, src: Register) {
     if(src === Register.M) {
         // @ts-expect-error: If `src` is Register.M, then `target` cannot also be Register.M. Typescript doesn't know this and throws an error
