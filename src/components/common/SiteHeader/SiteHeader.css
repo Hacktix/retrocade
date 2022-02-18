@@ -1,3 +1,64 @@
+@keyframes flicker1 {
+    0%, 9%, 11%, 35%, 37%, 43%, 45%, 89%, 91%, 100% {
+        color: red;
+        text-shadow:
+            0 0 3px rgba(200, 0, 0, 0.3),
+            0 0 5px rgba(200, 0, 0, 0.25),
+            0 0 10px rgba(200, 0, 0, 0.2),
+            0 0 20px #a00,
+            0 0 40px #a00,
+            0 0 60px #a00,
+            0 0 80px #a00,
+            0 0 100px #a00;
+    }
+    10%, 36%, 44%, 90% {
+        color: #a00;
+        text-shadow:
+            0 0 3px rgba(200, 0, 0, 0.3),
+            0 0 5px rgba(200, 0, 0, 0.25),
+            0 0 10px rgba(200, 0, 0, 0.2);
+    }
+}
+
+@keyframes flicker2 {
+    0%, 19%, 21%, 27%, 29%, 59%, 61%, 77%, 79%, 100% {
+        color: red;
+        text-shadow:
+            0 0 3px rgba(200, 0, 0, 0.3),
+            0 0 5px rgba(200, 0, 0, 0.25),
+            0 0 10px rgba(200, 0, 0, 0.2),
+            0 0 20px #a00,
+            0 0 40px #a00,
+            0 0 60px #a00,
+            0 0 80px #a00,
+            0 0 100px #a00;
+    }
+    20%, 28%, 60%, 78% {
+        color: #a00;
+        text-shadow:
+            0 0 3px rgba(200, 0, 0, 0.3),
+            0 0 5px rgba(200, 0, 0, 0.25),
+            0 0 10px rgba(200, 0, 0, 0.2);
+    }
+}
+
+.Flicker1A {
+    animation: flicker1 5s infinite;
+}
+
+.Flicker1B {
+    animation: flicker1 10s infinite;
+}
+
+.Flicker2A {
+    animation: flicker2 5s infinite;
+}
+
+.Flicker2B {
+    animation: flicker2 12s infinite;
+}
+
+
 a:link, a:visited {
     text-decoration: none;
 }
