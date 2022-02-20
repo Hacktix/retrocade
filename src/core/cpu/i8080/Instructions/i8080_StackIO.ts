@@ -1,23 +1,6 @@
 import i8080 from "../i8080";
 import { RegisterPair } from "../i8080_InstructionEnums";
 
-export function i8080_OUT(this: i8080): number {
-    const port = this.bus.read(this.pc++);
-    this.bus.writeIO(port, this.regs.a);
-    return 10;
-}
-
-export function i8080_IN(this: i8080): number {
-    const port = this.bus.read(this.pc++);
-    this.regs.a = this.bus.readIO(port);
-    return 10;
-}
-
-export function i8080_EI(this: i8080): number {
-    this.interruptsEnabled = true;
-    return 4;
-}
-
 export function i8080_PUSH(this: i8080, src: RegisterPair): number {
     if(src === RegisterPair.SP) {
         // SP is actually PSW
@@ -65,4 +48,31 @@ export function i8080_XTHL(this: i8080) {
     this.regs.h = this.bus.read(this.regs.sp + 1);
     this.bus.write(tmpH, this.regs.sp + 1);
     return 18;
+}
+
+export function i8080_SPHL(this: i8080) {
+    this.regs.sp = this.regs.hl;
+    return 5;
+}
+
+export function i8080_IN(this: i8080): number {
+    const port = this.bus.read(this.pc++);
+    this.regs.a = this.bus.readIO(port);
+    return 10;
+}
+
+export function i8080_OUT(this: i8080): number {
+    const port = this.bus.read(this.pc++);
+    this.bus.writeIO(port, this.regs.a);
+    return 10;
+}
+
+export function i8080_EI(this: i8080): number {
+    this.interruptsEnabled = true;
+    return 4;
+}
+
+export function i8080_DI(this: i8080): number {
+    this.interruptsEnabled = false;
+    return 4;
 }
