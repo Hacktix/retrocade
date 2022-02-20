@@ -1,4 +1,5 @@
 import i8080MemoryBus from "../../cpu/i8080/i8080_MemoryBus";
+import SpaceInvadersAudio from "./SpaceInvadersAudio";
 import { DrawFunction, SCREEN_HEIGHT, SpaceInvadersInput } from "./SpaceInvadersEmu";
 import SpaceInvadersShiftReg from "./SpaceInvadersShiftReg";
 
@@ -8,6 +9,7 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
     private ram: Uint8Array = Uint8Array.from(new Array(0x400).fill(0));
     private vram: Uint8Array = Uint8Array.from(new Array(0x1C00).fill(0));
     private shiftReg: SpaceInvadersShiftReg = new SpaceInvadersShiftReg();
+    private audio: SpaceInvadersAudio;
 
     public input = {
         [SpaceInvadersInput.Left]: false,
@@ -20,15 +22,14 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
 
     private draw: DrawFunction;
 
-    public constructor(rom: Uint8Array, draw: DrawFunction) {
+    public constructor(rom: Uint8Array, draw: DrawFunction, audio: SpaceInvadersAudio) {
         super();
         this.rom = rom;
         this.draw = draw;
+        this.audio = audio;
     }
 
     public read(addr: number): number {
-        addr &= 0xffff;
-        
         if(addr < 0x2000)      return this.rom[addr];
         else if(addr < 0x2400) return this.ram[addr & 0x3FF];
         else if(addr < 0x4000) return this.vram[addr - 0x2400];
@@ -36,8 +37,6 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
     }
 
     public write(val: number, addr: number): void {
-        addr &= 0xffff;
-
         if(addr < 0x2000)
             return;
         else if(addr < 0x2400)
@@ -90,6 +89,10 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
             case 2:
             case 4:
                 this.shiftReg.write(port, value);
+                break;
+            case 3:
+            case 5:
+                this.audio.write(port, value);
                 break;
         }
     }

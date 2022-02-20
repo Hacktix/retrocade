@@ -1,4 +1,5 @@
 import i8080 from "../../cpu/i8080/i8080";
+import SpaceInvadersAudio, { SpaceInvadersSoundMap } from "./SpaceInvadersAudio";
 import SpaceInvadersBus from "./SpaceInvadersBus";
 
 export const SCREEN_WIDTH = 224;
@@ -11,7 +12,13 @@ export enum SpaceInvadersInput {
     Left, Right, Fire, Credit, Start1P, Start2P
 }
 
+export enum SpaceInvadersSound {
+    Hit, Invader1, Invader2, Invader3, Invader4, PlayerHit, Shot, UFO
+}
+
 export default class SpaceInvadersEmu {
+
+    public halt = false;
 
     private bus: SpaceInvadersBus;
     private cpu: i8080;
@@ -21,7 +28,7 @@ export default class SpaceInvadersEmu {
     /** Framebuffer Bitmap containing image data which should be rendered. Drawn to `renderContext` whenever the `render()` function is called. */
     private bitmap: ImageData;
 
-    public constructor(rom: Uint8Array, renderContext: CanvasRenderingContext2D) {
+    public constructor(rom: Uint8Array, renderContext: CanvasRenderingContext2D, soundMap: SpaceInvadersSoundMap) {
         // Initialize canvas
         this.renderContext = renderContext;
         this.bitmap = renderContext.createImageData(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -32,7 +39,7 @@ export default class SpaceInvadersEmu {
 
         // Initialize hardware
         this.cpu = new i8080();
-        this.bus = new SpaceInvadersBus(rom, this.draw.bind(this));
+        this.bus = new SpaceInvadersBus(rom, this.draw.bind(this), new SpaceInvadersAudio(soundMap));
         this.cpu.connectToBus(this.bus);
 
         // Start Emulator
@@ -77,7 +84,9 @@ export default class SpaceInvadersEmu {
             // Reset cycle counter for frame and render framebuffer
             this.cpu.cycles -= CYCLES_PER_FRAME;
             this.render();
-            requestAnimationFrame(() => this.tickFrame());
+            
+            if(!this.halt)
+                requestAnimationFrame(() => this.tickFrame());
         } catch(e) {
             this.renderContext.putImageData(this.bitmap, 0, 0);
             throw e;
