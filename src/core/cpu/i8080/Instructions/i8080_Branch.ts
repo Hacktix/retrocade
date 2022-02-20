@@ -29,9 +29,13 @@ export function i8080_Jcond(this: i8080, cond: BranchCondition): number {
 export function i8080_CALL(this: i8080): number {
     const addr = this.bus.read(this.pc) | (this.bus.read(this.pc + 1) << 8);
     this.pc += 2;
-    this.bus.write((this.pc & 0xff00) >> 8, --this.regs.sp);
-    this.bus.write(this.pc & 0xff, --this.regs.sp);
-    this.pc = addr;
+    if(this.emulateCPM && addr === 5)
+        this.bdosCall();
+    else {
+        this.bus.write((this.pc & 0xff00) >> 8, --this.regs.sp);
+        this.bus.write(this.pc & 0xff, --this.regs.sp);
+        this.pc = addr;
+    }
     return 17;
 }
 

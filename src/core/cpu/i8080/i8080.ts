@@ -1,12 +1,16 @@
 import CPU from "../../base/CPU";
+import { i8080BDOSLUT } from "./i8080_BDOSLUT";
 import { i8080InstructionLUT } from "./i8080_InstructionLUT";
 import i8080MemoryBus from "./i8080_MemoryBus";
 
 export default class i8080 extends CPU {
 
     protected bus!: i8080MemoryBus;
+    
+    protected readonly emulateCPM;
 
     private lut: i8080InstructionLUT = new i8080InstructionLUT(this);
+    private bdosLUT: i8080BDOSLUT = new i8080BDOSLUT(this);
 
     protected pc: number = 0;
     public cycles: number = 0;
@@ -70,6 +74,25 @@ export default class i8080 extends CPU {
             this._l = v & 0xff;
         },
         set sp(v) { this._sp = v & 0xffff }
+    }
+
+    constructor(emulateCPM = false) {
+        super();
+        this.emulateCPM = emulateCPM;
+        if(emulateCPM)
+            this.pc = 0x100;
+    }
+
+    protected bdosCall() {
+        try {
+            this.bdosLUT.table[this.regs.c].call(this);
+        } catch(e: any) {
+            if(e.stack.includes("TypeError")) {
+                this.pc--;
+                throw new Error(`EMULATOR ERROR: Called unknown BDOS Function ${this.regs.c} @ PC=$${this.pc.toString(16).padStart(4, "0")}`);
+            }
+            throw e;
+        }
     }
 
     public tick(): void {
