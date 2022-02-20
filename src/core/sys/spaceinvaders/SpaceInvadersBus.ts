@@ -27,6 +27,8 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
     }
 
     public read(addr: number): number {
+        addr &= 0xffff;
+        
         if(addr < 0x2000)      return this.rom[addr];
         else if(addr < 0x2400) return this.ram[addr & 0x3FF];
         else if(addr < 0x4000) return this.vram[addr - 0x2400];
@@ -34,6 +36,8 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
     }
 
     public write(val: number, addr: number): void {
+        addr &= 0xffff;
+
         if(addr < 0x2000)
             return;
         else if(addr < 0x2400)

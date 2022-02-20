@@ -49,7 +49,7 @@ export default class i8080 extends CPU {
         get bc() { return (this._b << 8) | this._c; },
         get de() { return (this._d << 8) | this._e; },
         get hl() { return (this._h << 8) | this._l; },
-        get sp() { return this._sp; },
+        get sp() { return this._sp & 0xffff; },
 
         // 8-bit Setters
         set a(v) { this._a = v & 0xff },
