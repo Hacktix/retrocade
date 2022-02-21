@@ -1,0 +1,12 @@
+.Dropdown {
+    background-color: transparent;
+    color: red;
+    padding: 0.5em;
+    margin: 5px;
+    border-color: red;
+    box-shadow:
+        0 0 1px red,
+        0 0 3px red,
+        0 0 5px red;
+    outline: none;
+}

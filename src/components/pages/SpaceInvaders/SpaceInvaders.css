@@ -4,6 +4,13 @@
     height: 70vh;
 }
 
+.OptionsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
+
 .GameControlsDesktop {
     display: flex;
     flex-wrap: wrap;

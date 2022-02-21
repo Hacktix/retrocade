@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
-import SpaceInvadersEmu, { SCREEN_HEIGHT, SCREEN_WIDTH, SpaceInvadersInput, SpaceInvadersSound } from "../../../core/sys/spaceinvaders/SpaceInvadersEmu";
+import SpaceInvadersEmu, { SCREEN_HEIGHT, SCREEN_WIDTH, SpaceInvadersInput, SpaceInvadersOption, SpaceInvadersSound } from "../../../core/sys/spaceinvaders/SpaceInvadersEmu";
 import { SpaceInvadersSoundMap } from "../../../core/sys/spaceinvaders/SpaceInvadersAudio";
 import EmulatorCanvas from "../../common/EmulatorCanvas/EmulatorCanvas";
 import useSound from 'use-sound';
@@ -14,6 +14,8 @@ import invaderSound4 from "../../../assets/sfx/spaceinvaders/invader4.mp3";
 import playerHitSound from "../../../assets/sfx/spaceinvaders/playerhit.mp3";
 import shotSound from "../../../assets/sfx/spaceinvaders/shot.mp3";
 import ufoSound from "../../../assets/sfx/spaceinvaders/ufo.mp3";
+import ToggleSwitch from "../../common/ToggleSwitch/ToggleSwitch";
+import Dropdown from "../../common/Dropdown/Dropdown";
 
 export default function SpaceInvaders() {
     const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> = useRef(null);
@@ -80,6 +82,13 @@ export default function SpaceInvaders() {
         if(emuRef.current)
             emuRef.current.setInputState(input, false);
     }
+
+
+    function setGameOption(option: SpaceInvadersOption, value: any) {
+        if(emuRef.current)
+            emuRef.current.setGameOption(option, value);
+    }
+
 
     return (
         <div className="EmulatorContainer">
@@ -149,6 +158,34 @@ export default function SpaceInvaders() {
                         Enter - Start Game (1P)<br />
                     </p>
                 </BrowserView>
+
+                <br />
+
+                <h3>Game Options</h3>
+                <p><b>Warning:</b> Changing any of these will fully restart the emulator!</p>
+                <br />
+                <div className="OptionsContainer">
+                    <ToggleSwitch
+                        title="Extra Life Score Threshold"
+                        leftOption="1500 Points"
+                        rightOption="1000 Points"
+                        onChange={(e) => setGameOption(SpaceInvadersOption.ExtraShip, e.target.checked)}
+                    />
+                    <Dropdown title="Starting Lives" onChange={(e) => setGameOption(SpaceInvadersOption.ShipCount, e.target.value)}>
+                        <option value={0}>3 Ships</option>
+                        <option value={1}>4 Ships</option>
+                        <option value={2}>5 Ships</option>
+                        <option value={3}>6 Ships</option>
+                    </Dropdown>
+                    { /* This doesn't actually seem to do anything? idk
+                    <ToggleSwitch
+                        title="Coin Info on Demo Screen"
+                        leftOption="Shown"
+                        rightOption="Hidden"
+                        onChange={(e) => setGameOption(SpaceInvadersOption.DemoCoinInfo, e.target.checked)}
+                    />
+                    */ }
+                </div>
             </div>
             <BrowserView className="GameControlsDesktop" style={{alignItems: "flex-start"}}>
                 <button

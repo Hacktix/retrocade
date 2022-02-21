@@ -9,11 +9,15 @@ export const CYCLES_PER_FRAME = (2 * Math.pow(2, 20)) / 60;
 export type DrawFunction = (x: number, y: number, light: boolean) => void;
 
 export enum SpaceInvadersInput {
-    Left, Right, Fire, Credit, Start1P, Start2P
+    Left, Right, Fire, Credit, Start1P, Start2P, Tilt
 }
 
 export enum SpaceInvadersSound {
     Hit, Invader1, Invader2, Invader3, Invader4, PlayerHit, Shot, UFO
+}
+
+export enum SpaceInvadersOption {
+    ShipCount, ExtraShip, DemoCoinInfo
 }
 
 export default class SpaceInvadersEmu {
@@ -95,6 +99,28 @@ export default class SpaceInvadersEmu {
 
     public setInputState(input: SpaceInvadersInput, state: boolean): void {
         this.bus.input[input] = state;
+    }
+
+    public setGameOption(option: SpaceInvadersOption, value: any) {
+        switch(option) {
+            case SpaceInvadersOption.DemoCoinInfo:
+                if(value)
+                    this.bus.optionsBitOverlay |= (1 << 7);
+                else
+                    this.bus.optionsBitOverlay &= ~(1 << 7);
+                break;
+            case SpaceInvadersOption.ExtraShip:
+                if(value)
+                    this.bus.optionsBitOverlay |= (1 << 3);
+                else
+                    this.bus.optionsBitOverlay &= ~(1 << 3);
+                break;
+            case SpaceInvadersOption.ShipCount:
+                this.bus.optionsBitOverlay &= ~(0b11);
+                this.bus.optionsBitOverlay |= value;
+                break;
+        }
+        this.cpu.reset(0);
     }
 
 }
