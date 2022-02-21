@@ -58,7 +58,22 @@
         0 0 5px red;
 }
 
-.GameButtonDesktop:hover, .GameButtonMobile:hover {
+.GameButtonTilt {
+    width: 5em;
+    height: 2.5em;
+    margin: 0.5em;
+    border: 1px solid red;
+    color: red;
+    background-color: transparent;
+    border-radius: 0.5em;
+    user-select: none;
+    box-shadow:
+        0 0 1px red,
+        0 0 3px red,
+        0 0 5px red;
+}
+
+.GameButtonDesktop:hover, .GameButtonMobile:hover .GameButtonTilt:hover {
     border: 1px solid #f22;
     color: #f22;
     box-shadow:
@@ -67,11 +82,26 @@
         0 0 5px #f22;
 }
 
-.GameButtonDesktop:active, .GameButtonMobile:active {
+.GameButtonDesktop:active, .GameButtonMobile:active .GameButtonTilt:active {
     border: 1px solid #a00;
     color: #a00;
     box-shadow:
         0 0 1px #a00,
         0 0 3px #a00,
         0 0 5px #a00;
+}
+
+.GameButtonTilt {
+    width: 5em;
+    height: 2.5em;
+    margin: 0.5em;
+    border: 1px solid red;
+    color: red;
+    background-color: transparent;
+    border-radius: 0.5em;
+    user-select: none;
+    box-shadow:
+        0 0 1px red,
+        0 0 3px red,
+        0 0 5px red;
 }

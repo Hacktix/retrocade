@@ -186,6 +186,14 @@ export default function SpaceInvaders() {
                     />
                     */ }
                 </div>
+
+                <button
+                    onMouseDown={() => pressButton(SpaceInvadersInput.Tilt)}
+                    onMouseUp={() => unpressButton(SpaceInvadersInput.Tilt)}
+                    onTouchStart={() => pressButton(SpaceInvadersInput.Tilt)}
+                    onTouchEnd={() => unpressButton(SpaceInvadersInput.Tilt)}
+                    className="GameButtonTilt"
+                >TILT</button>
             </div>
             <BrowserView className="GameControlsDesktop" style={{alignItems: "flex-start"}}>
                 <button

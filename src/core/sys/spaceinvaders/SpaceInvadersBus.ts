@@ -76,6 +76,7 @@ export default class SpaceInvadersBus extends i8080MemoryBus {
                     | (this.input[SpaceInvadersInput.Right]   ? (1 << 6) : 0);
             case 2:
                 return this.optionsBitOverlay
+                    | (this.input[SpaceInvadersInput.Tilt]   ? (1 << 2) : 0)
                     | (this.input[SpaceInvadersInput.Fire]   ? (1 << 4) : 0)
                     | (this.input[SpaceInvadersInput.Left]   ? (1 << 5) : 0)
                     | (this.input[SpaceInvadersInput.Right]  ? (1 << 6) : 0);
