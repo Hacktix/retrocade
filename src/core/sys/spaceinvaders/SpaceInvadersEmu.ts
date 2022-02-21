@@ -58,11 +58,16 @@ export default class SpaceInvadersEmu {
      */
     private draw(x: number, y: number, light: boolean) {
         const pixelBase = 4 * x + 4 * SCREEN_WIDTH * y;
-        const colorValue = light ? 255 : 0;
+        const colorValue = light ? (
+                (y >= 32 && y <= 63) ? {r: 255, g: 0, b: 0} :
+                (y >= 184 && y <= 239) ? {r: 0, g: 255, b: 0} :
+                (y >= 240 && (x >= 25 && x <= 135)) ? {r: 0, g: 255, b: 0} :
+                {r: 255, g: 255, b: 255}
+            ) : {r: 0, g: 0, b: 0};
 
-        this.bitmap.data[pixelBase] = colorValue;
-        this.bitmap.data[pixelBase + 1] = colorValue;
-        this.bitmap.data[pixelBase + 2] = colorValue;
+        this.bitmap.data[pixelBase] = colorValue.r;
+        this.bitmap.data[pixelBase + 1] = colorValue.g;
+        this.bitmap.data[pixelBase + 2] = colorValue.b;
     }
 
     /** Renders the framebuffer to the emulator canvas */
