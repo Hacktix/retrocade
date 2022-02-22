@@ -95,10 +95,12 @@ export default class i8080 extends CPU {
         }
     }
 
-    public tick(): void {
+    public tick(): number {
         const opcode = this.bus.read(this.pc++);
         try {
-            this.cycles += this.lut.table[opcode].call(this);
+            const cycles = this.lut.table[opcode].call(this);
+            this.cycles += cycles;
+            return cycles;
         } catch(e: any) {
             if(e.stack.includes("TypeError")) {
                 this.pc--;

@@ -4,7 +4,8 @@ import SpaceInvadersBus from "./SpaceInvadersBus";
 
 export const SCREEN_WIDTH = 224;
 export const SCREEN_HEIGHT = 256;
-export const CYCLES_PER_FRAME = (2 * Math.pow(2, 20)) / 60;
+export const CYCLES_PER_SECOND = 2 * Math.pow(2, 20);
+export const CYCLES_PER_FRAME = CYCLES_PER_SECOND / 60;
 
 export type DrawFunction = (x: number, y: number, light: boolean) => void;
 
@@ -23,6 +24,9 @@ export enum SpaceInvadersOption {
 export default class SpaceInvadersEmu {
 
     public halt = false;
+
+    private lastTickTime = 0;
+    private interruptCycles = 0;
 
     private bus: SpaceInvadersBus;
     private cpu: i8080;
@@ -47,7 +51,7 @@ export default class SpaceInvadersEmu {
         this.cpu.connectToBus(this.bus);
 
         // Start Emulator
-        requestAnimationFrame(() => this.tickFrame())
+        requestAnimationFrame(this.tickFrame.bind(this));
     }
 
     /**
@@ -76,26 +80,44 @@ export default class SpaceInvadersEmu {
     }
 
     /** Ticks the emulator by an entire frame. */
-    private tickFrame() {
+    private tickFrame(time: number) {
+        if(this.halt)
+            return;
+
+        // Calculate how much time passed since last frame
+        const elapsedTime = time - this.lastTickTime;
+        this.lastTickTime = time;
+
+        // Calculate how many cycles should be executed in this call
+        const cyclesToExec = Math.min(Math.round(CYCLES_PER_SECOND * (elapsedTime / 1000)), CYCLES_PER_FRAME);
+
         try {
-            // Tick until first half of frame is done, fire interrupt if enabled
-            while(this.cpu.cycles < (CYCLES_PER_FRAME / 2))
-                this.cpu.tick();
-            if(this.cpu.interruptsEnabled)
-                this.cpu.reset(0x8);
+            // Execute however many cycles should be executed according to calculation above
+            while(this.cpu.cycles < cyclesToExec) {
+                // Tick CPU and keep track of how many cycles were executed
+                const cycles = this.cpu.tick();
 
-            // Continue ticking until full frame is done, fire interrupt if enabled
-            while(this.cpu.cycles < CYCLES_PER_FRAME)
-                this.cpu.tick();
-            if(this.cpu.interruptsEnabled)
-                this.cpu.reset(0x10);
+                // Check if an interrupt should be fired
+                if(this.cpu.interruptsEnabled) {
+                    // If executing the last tick passed the mid-frame mark, reset to 0x08
+                    if(this.interruptCycles <= (CYCLES_PER_FRAME/2) && (this.interruptCycles + cycles) >= (CYCLES_PER_FRAME/2))
+                        this.cpu.reset(0x8);
+                    // Otherwise, if executing the last tick passed the full frame mark, reset to 0x10
+                    else if(this.interruptCycles <= CYCLES_PER_FRAME && (this.interruptCycles + cycles) >= CYCLES_PER_FRAME) {
+                        this.cpu.reset(0x10);
+                        this.interruptCycles -= CYCLES_PER_FRAME; // Reset interruptCycles counter to make mid-frame interrupt fire next time
+                    }
+                    // Update interruptCycles counter with executed cycles
+                    this.interruptCycles += cycles;
+                }
+            }
 
-            // Reset cycle counter for frame and render framebuffer
-            this.cpu.cycles -= CYCLES_PER_FRAME;
+            // Reset cycle counter in preparation for next frame
+            this.cpu.cycles -= cyclesToExec;
+
+            // Render framebuffer to canvas and bind function to be called next frame
             this.render();
-            
-            if(!this.halt)
-                requestAnimationFrame(() => this.tickFrame());
+            requestAnimationFrame(this.tickFrame.bind(this));
         } catch(e) {
             this.renderContext.putImageData(this.bitmap, 0, 0);
             throw e;

@@ -8,7 +8,7 @@ export default abstract class CPU {
         this.bus = bus;
     }
 
-    public abstract tick(): void;
+    public abstract tick(): number;
     public abstract reset(addr: number): void;
 
 }
