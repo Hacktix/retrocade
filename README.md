@@ -5,11 +5,16 @@
 [![Discord](https://discordapp.com/api/guilds/943239712137691186/widget.png?style=banner2)](https://discord.gg/FZbJyn7tBm)
 
 ## What's this?
-RETROCADE is (going to be) a collection of browser-based emulators capable of playing games from retro consoles and arcade machines. The right tool for all your retro gaming needs!
+RETROCADE is (going to be) a collection of browser-based emulators capable of playing games from retro consoles and arcade machines, optimized for use both on desktop computers as well as mobile devices. The right tool for all your retro gaming needs!
 
 ## Features
-Support for the following systems is planned:
-* Space Invaders
+### Implemented Systems:
+
+**Space Invaders**
+
+![Space Invaders](https://i.imgur.com/Jsfsaq0.png)
+
+### Planned Systems:
 * Pac-Man
 * Galaga
 * Nintendo Gameboy
