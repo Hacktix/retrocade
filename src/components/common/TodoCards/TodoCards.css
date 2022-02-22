@@ -1,0 +1,33 @@
+.TodoCardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    width: 100%;
+    user-select: none;
+}
+
+.TodoCard {
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+    height: 3em;
+    min-width: min(10em, 35vw);
+    max-width: 35vw;
+    padding: 0.25em;
+    border: 1px solid red;
+    box-shadow:
+        0 0 1px #a00,
+        0 0 3px #a00,
+        0 0 5px #a00;
+    margin: 0.5em;
+}
+
+.TodoCardCheck {
+    font-size: xx-large;
+}
+
+.TodoCardText {
+    margin: 0.5em;
+}
