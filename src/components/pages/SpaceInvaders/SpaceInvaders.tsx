@@ -20,6 +20,9 @@ import ufoSound from "../../../assets/sfx/spaceinvaders/ufo.mp3";
 
 let emulator: SpaceInvadersEmu | null = null;
 
+let buttonsMashed = 0;
+let lastButtonInput = 0;
+
 export default function SpaceInvaders() {
     const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> = useRef(null);
 
@@ -73,6 +76,17 @@ export default function SpaceInvaders() {
         // @ts-expect-error: Typescript complains about "string" not being a key of keyboardInputMap because those keys are statically defined,
         //                   but we want to check whether or not it exists, so we *want* to access undefined keys here.
         if(keyboardInputMap[e.key] !== undefined) pressButton(keyboardInputMap[e.key]);
+
+        // Easter Egg for TILT if buttons are mashed
+        const timestamp = Date.now();
+        if(timestamp - lastButtonInput > 500)
+            buttonsMashed = 0;
+        lastButtonInput = timestamp;
+        if(++buttonsMashed === 1500) {
+            pressButton(SpaceInvadersInput.Tilt);
+            setTimeout(() => unpressButton(SpaceInvadersInput.Tilt), 150);
+            buttonsMashed = 0;
+        }
     }
 
     function unpressKeyboardButton(e: KeyboardEvent) {
@@ -191,14 +205,6 @@ export default function SpaceInvaders() {
                     />
                     */ }
                 </div>
-
-                <button
-                    onMouseDown={() => pressButton(SpaceInvadersInput.Tilt)}
-                    onMouseUp={() => unpressButton(SpaceInvadersInput.Tilt)}
-                    onTouchStart={() => pressButton(SpaceInvadersInput.Tilt)}
-                    onTouchEnd={() => unpressButton(SpaceInvadersInput.Tilt)}
-                    className="GameButtonTilt"
-                >TILT</button>
             </div>
             <BrowserView className="GameControlsDesktop" style={{alignItems: "flex-start"}}>
                 <button
