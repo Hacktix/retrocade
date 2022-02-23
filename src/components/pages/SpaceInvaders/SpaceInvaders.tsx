@@ -22,14 +22,14 @@ export default function SpaceInvaders() {
     const emuRef: React.MutableRefObject<SpaceInvadersEmu | null> = useRef(null);
 
     const soundMap: SpaceInvadersSoundMap = {
-        [SpaceInvadersSound.Hit]: useSound(hitSound)[0],
-        [SpaceInvadersSound.Invader1]: useSound(invaderSound1)[0],
-        [SpaceInvadersSound.Invader2]: useSound(invaderSound2)[0],
-        [SpaceInvadersSound.Invader3]: useSound(invaderSound3)[0],
-        [SpaceInvadersSound.Invader4]: useSound(invaderSound4)[0],
-        [SpaceInvadersSound.PlayerHit]: useSound(playerHitSound)[0],
-        [SpaceInvadersSound.Shot]: useSound(shotSound)[0],
-        [SpaceInvadersSound.UFO]: useSound(ufoSound)[0]
+        [SpaceInvadersSound.Hit]: useSound(hitSound),
+        [SpaceInvadersSound.Invader1]: useSound(invaderSound1),
+        [SpaceInvadersSound.Invader2]: useSound(invaderSound2),
+        [SpaceInvadersSound.Invader3]: useSound(invaderSound3),
+        [SpaceInvadersSound.Invader4]: useSound(invaderSound4),
+        [SpaceInvadersSound.PlayerHit]: useSound(playerHitSound),
+        [SpaceInvadersSound.Shot]: useSound(shotSound),
+        [SpaceInvadersSound.UFO]: useSound(ufoSound)
     };
 
     useEffect(() => {
