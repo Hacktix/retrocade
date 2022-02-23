@@ -23,6 +23,7 @@ let emulator: SpaceInvadersEmu | null = null;
 
 let buttonsMashed = 0;
 let lastButtonInput = 0;
+let lastButtonPressed = "";
 
 export default function SpaceInvaders() {
     const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> = useRef(null);
@@ -86,12 +87,16 @@ export default function SpaceInvaders() {
         //                   but we want to check whether or not it exists, so we *want* to access undefined keys here.
         if(keyboardInputMap[e.key] !== undefined) pressButton(keyboardInputMap[e.key]);
 
+        if(e.key === lastButtonPressed)
+            return;
+        lastButtonPressed = e.key;
+
         // Easter Egg for TILT if buttons are mashed
         const timestamp = Date.now();
-        if(timestamp - lastButtonInput > 500)
+        if(timestamp - lastButtonInput > 150)
             buttonsMashed = 0;
         lastButtonInput = timestamp;
-        if(++buttonsMashed === 1500) {
+        if(++buttonsMashed === 100) {
             pressButton(SpaceInvadersInput.Tilt);
             setTimeout(() => unpressButton(SpaceInvadersInput.Tilt), 150);
             buttonsMashed = 0;
@@ -102,6 +107,7 @@ export default function SpaceInvaders() {
         // @ts-expect-error: Typescript complains about "string" not being a key of keyboardInputMap because those keys are statically defined,
         //                   but we want to check whether or not it exists, so we *want* to access undefined keys here.
         if(keyboardInputMap[e.key] !== undefined) unpressButton(keyboardInputMap[e.key]);
+        lastButtonPressed = "";
     }
 
     function pressButton(input: SpaceInvadersInput) {
