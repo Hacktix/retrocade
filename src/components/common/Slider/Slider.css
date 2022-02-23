@@ -1,0 +1,12 @@
+.SliderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5em;
+    width: 100%;
+}
+
+.SliderLabel {
+    font-size: large;
+    width: 10%;
+}

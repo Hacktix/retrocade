@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 import SpaceInvadersEmu, { SCREEN_HEIGHT, SCREEN_WIDTH, SpaceInvadersInput, SpaceInvadersOption, SpaceInvadersSound } from "../../../core/sys/spaceinvaders/SpaceInvadersEmu";
 import { SpaceInvadersSoundMap } from "../../../core/sys/spaceinvaders/SpaceInvadersAudio";
@@ -17,6 +17,7 @@ import invaderSound4 from "../../../assets/sfx/spaceinvaders/invader4.mp3";
 import playerHitSound from "../../../assets/sfx/spaceinvaders/playerhit.mp3";
 import shotSound from "../../../assets/sfx/spaceinvaders/shot.mp3";
 import ufoSound from "../../../assets/sfx/spaceinvaders/ufo.mp3";
+import Slider from "../../common/Slider/Slider";
 
 let emulator: SpaceInvadersEmu | null = null;
 
@@ -25,6 +26,7 @@ let lastButtonInput = 0;
 
 export default function SpaceInvaders() {
     const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> = useRef(null);
+    const [volume, setVolumeValue] = useState(100);
 
     const soundMap: SpaceInvadersSoundMap = {
         [SpaceInvadersSound.Hit]: useSound(hitSound),
@@ -36,6 +38,13 @@ export default function SpaceInvaders() {
         [SpaceInvadersSound.Shot]: useSound(shotSound),
         [SpaceInvadersSound.UFO]: useSound(ufoSound)
     };
+
+    function setVolume(vol: number) {
+        Object.keys(soundMap).forEach(sound => {
+            soundMap[sound as unknown as SpaceInvadersSound][1].sound.volume(vol / 100);
+        });
+        setVolumeValue(vol);
+    }
 
     useEffect(() => {
         if(canvasRef.current === null)
@@ -182,7 +191,12 @@ export default function SpaceInvaders() {
 
                 <h3>Game Options</h3>
                 <p><b>Warning:</b> Changing any of these will fully restart the emulator!</p>
-                <br />
+                <Slider
+                    showValue
+                    label="🔈"
+                    value={volume}
+                    onChange={(e) => setVolume(parseInt(e.target.value))}
+                />
                 <div className="OptionsContainer">
                     <ToggleSwitch
                         title="Extra Life Score Threshold"
