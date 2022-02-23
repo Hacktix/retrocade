@@ -2,6 +2,8 @@ import ProgressBar from "../../common/ProgressBar/ProgressBar";
 import { System, SystemSelection } from "../../common/SystemSelection/SystemSelection";
 import TodoCards from "../../common/TodoCards/TodoCards";
 import TodoCard from "../../common/TodoCards/TodoCard";
+import { useEffect } from "react";
+import EmulatorCleanupManager from "../../../core/base/EmulatorCleanupManager";
 
 import "./Homepage.css";
 
@@ -11,6 +13,8 @@ export default function Homepage() {
     const systems: Array<System> = [
         { name: "Space Invaders", img: SpaceInvadersLogo, url: "/spaceinvaders" }
     ]
+
+    useEffect(() => EmulatorCleanupManager.cleanup());
 
     return (
         <>

@@ -4,6 +4,9 @@ import SpaceInvadersEmu, { SCREEN_HEIGHT, SCREEN_WIDTH, SpaceInvadersInput, Spac
 import { SpaceInvadersSoundMap } from "../../../core/sys/spaceinvaders/SpaceInvadersAudio";
 import EmulatorCanvas from "../../common/EmulatorCanvas/EmulatorCanvas";
 import useSound from 'use-sound';
+import ToggleSwitch from "../../common/ToggleSwitch/ToggleSwitch";
+import Dropdown from "../../common/Dropdown/Dropdown";
+import EmulatorCleanupManager from "../../../core/base/EmulatorCleanupManager";
 import "./SpaceInvaders.css";
 
 import hitSound from "../../../assets/sfx/spaceinvaders/hit.mp3";
@@ -14,12 +17,11 @@ import invaderSound4 from "../../../assets/sfx/spaceinvaders/invader4.mp3";
 import playerHitSound from "../../../assets/sfx/spaceinvaders/playerhit.mp3";
 import shotSound from "../../../assets/sfx/spaceinvaders/shot.mp3";
 import ufoSound from "../../../assets/sfx/spaceinvaders/ufo.mp3";
-import ToggleSwitch from "../../common/ToggleSwitch/ToggleSwitch";
-import Dropdown from "../../common/Dropdown/Dropdown";
+
+let emulator: SpaceInvadersEmu | null = null;
 
 export default function SpaceInvaders() {
     const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> = useRef(null);
-    const emuRef: React.MutableRefObject<SpaceInvadersEmu | null> = useRef(null);
 
     const soundMap: SpaceInvadersSoundMap = {
         [SpaceInvadersSound.Hit]: useSound(hitSound),
@@ -44,12 +46,18 @@ export default function SpaceInvaders() {
             // For some god damn reason the sounds only actually play if I keep re-initializing the emulator
             // But keeping around like 10 instances of the emulator is terrible for performance so I just kinda
             // stop them from doing stuff by setting their `halt` property to `true`.
-            if(emuRef.current)
-                emuRef.current.halt = true;
-            emuRef.current = new SpaceInvadersEmu(rom, renderContext as CanvasRenderingContext2D, soundMap);
+            if(emulator !== null)
+                emulator.discard();
+            emulator = new SpaceInvadersEmu(rom, renderContext as CanvasRenderingContext2D, soundMap);
             
             window.addEventListener("keydown", pressKeyboardButton);
             window.addEventListener("keyup", unpressKeyboardButton);
+
+            // Cleanup function called when the Space Invaders page is closed
+            EmulatorCleanupManager.registerCleanupCallback(() => {
+                emulator?.discard();
+                emulator = null;
+            });
         }))
     }, [soundMap]);
 
@@ -74,19 +82,16 @@ export default function SpaceInvaders() {
     }
 
     function pressButton(input: SpaceInvadersInput) {
-        if(emuRef.current)
-            emuRef.current.setInputState(input, true);
+        emulator?.setInputState(input, true);
     }
 
     function unpressButton(input: SpaceInvadersInput) {
-        if(emuRef.current)
-            emuRef.current.setInputState(input, false);
+        emulator?.setInputState(input, false);
     }
 
 
     function setGameOption(option: SpaceInvadersOption, value: any) {
-        if(emuRef.current)
-            emuRef.current.setGameOption(option, value);
+        emulator?.setGameOption(option, value);
     }
 
 

@@ -150,4 +150,12 @@ export default class SpaceInvadersEmu {
         this.cpu.reset(0);
     }
 
+    public discard() {
+        this.halt = true;
+        // @ts-expect-error
+        delete this.bus;
+        // @ts-expect-error
+        delete this.cpu;
+    }
+
 }
