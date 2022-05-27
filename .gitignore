@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode
+
+# dont question it, i like to have folder icons for my projects
+desktop.ini
