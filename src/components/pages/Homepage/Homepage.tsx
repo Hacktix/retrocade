@@ -69,7 +69,7 @@ export default function Homepage() {
             </p>
             <div>
                 Development Progress:
-                <ProgressBar value={85} />
+                <ProgressBar value={90} />
             </div>
             <TodoCards>
                 <TodoCard text="Memory Bus Emulation" done/>
@@ -78,7 +78,7 @@ export default function Homepage() {
                 <TodoCard text="Shift Register Emulation" done/>
                 <TodoCard text="Button Inputs" done/>
                 <TodoCard text="Dip Switch Options" done/>
-                <TodoCard text="Audio Output"/>
+                <TodoCard text="Audio Output" done/>
                 <TodoCard text="CRT Shader"/>
             </TodoCards>
             <br />
